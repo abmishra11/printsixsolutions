@@ -12,10 +12,6 @@ import { getData } from "@/lib/getData";
 import { getServerSession } from "next-auth";
 
 export default async function Home() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  if(!baseUrl){
-    return null;
-  }
   const session = await getServerSession(authOptions)
 
   const categoriesData = await getData("categories")

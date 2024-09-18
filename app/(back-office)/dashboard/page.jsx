@@ -12,10 +12,6 @@ import { getServerSession } from "next-auth";
 import React from "react";
 
 export default async function page() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  if (!baseUrl) {
-    return null;
-  }
   const session = await getServerSession(authOptions);
   const role = session?.user?.role;
   const sales = await getData("sales");
