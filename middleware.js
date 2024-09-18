@@ -1,7 +1,7 @@
-import { getToken } from "next-auth/jwt";
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
-import { LOGIN, REGISTER, REGISTER_VENDOR, PUBLIC_ROUTES, ROOT } from "./lib/routes";
+// import { getToken } from "next-auth/jwt";
+// import { withAuth } from "next-auth/middleware";
+// import { NextResponse } from "next/server";
+// import { LOGIN, REGISTER, REGISTER_VENDOR, PUBLIC_ROUTES, ROOT } from "./lib/routes";
 
 // export default withAuth(
 //     async function middleware(req) {
@@ -33,43 +33,43 @@ import { LOGIN, REGISTER, REGISTER_VENDOR, PUBLIC_ROUTES, ROOT } from "./lib/rou
 //     }
 // );
 
-export default withAuth(
-    async function middleware(req) {
-      const { nextUrl } = req;
-      const url = nextUrl.pathname;
+// export default withAuth(
+//     async function middleware(req) {
+//       const { nextUrl } = req;
+//       const url = nextUrl.pathname;
       
-      const isPublicRoute = PUBLIC_ROUTES.some(route => url.startsWith(route)) || nextUrl.pathname === ROOT;
+//       const isPublicRoute = PUBLIC_ROUTES.some(route => url.startsWith(route)) || nextUrl.pathname === ROOT;
       
-      const token = req.nextauth.token;
-      const role = token?.role;
+//       const token = req.nextauth.token;
+//       const role = token?.role;
   
-      // Redirect to login if not authenticated and not on a public route
-      if (!role && !isPublicRoute) {
-        return NextResponse.redirect(new URL(LOGIN, req.url));
-      }
+//       // Redirect to login if not authenticated and not on a public route
+//       if (!role && !isPublicRoute) {
+//         return NextResponse.redirect(new URL(LOGIN, req.url));
+//       }
   
-      const deniedPaths = {
-        ADMIN: ["/checkout"],
-        VENDOR: ["/dashboard/vendors", "/dashboard/categories", "/checkout"],
-        USER: ["/dashboard/vendors", "/dashboard/customers", "/dashboard/sales", "/dashboard/categories", "/dashboard/products", "/dashboard/coupons", "/dashboard/vendor-support"]
-      };
+//       const deniedPaths = {
+//         ADMIN: ["/checkout"],
+//         VENDOR: ["/dashboard/vendors", "/dashboard/categories", "/checkout"],
+//         USER: ["/dashboard/vendors", "/dashboard/customers", "/dashboard/sales", "/dashboard/categories", "/dashboard/products", "/dashboard/coupons", "/dashboard/vendor-support"]
+//       };
   
-      const isDenied = (deniedPaths[role] || []).some(path => url.startsWith(path));
+//       const isDenied = (deniedPaths[role] || []).some(path => url.startsWith(path));
   
-      if (isDenied) {
-        return NextResponse.redirect(new URL("/access-denied", req.url));
-      }
+//       if (isDenied) {
+//         return NextResponse.redirect(new URL("/access-denied", req.url));
+//       }
   
-      return NextResponse.next();
-    },
-    {
-      callbacks: {
-        authorized: ({ token }) => !!token,
-      },
-    }
-  );
+//       return NextResponse.next();
+//     },
+//     {
+//       callbacks: {
+//         authorized: ({ token }) => !!token,
+//       },
+//     }
+//   );
   
-  export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)", "/dashboard/:path*", "/checkout"]
-  };
+//   export const config = {
+//     matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)", "/dashboard/:path*", "/checkout"]
+//   };
 
