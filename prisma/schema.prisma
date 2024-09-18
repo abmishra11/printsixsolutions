@@ -1,0 +1,296 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// title, couponCode, expiryDate
+model Coupon{
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  couponCode String
+  expiryDate DateTime
+  isActive   Boolean
+
+  user      User @relation(fields: [vendorId], references:[id], onDelete:Cascade, onUpdate:Cascade)
+  vendorId  String @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Banner{
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title   String
+  link   String
+  imageUrl   String
+  isActive Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String 
+  slug        String    @unique
+  imageUrl    String?
+  description String?   
+  isActive    Boolean
+  products    Product[] 
+
+  marketIds   String[]  @db.ObjectId
+  markets     Market[]  @relation(fields: [marketIds], references: [id])
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  parentId    String?   @db.ObjectId
+  parent      Category? @relation("CategoryToCategory", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children    Category[] @relation("CategoryToCategory")
+}
+
+model Market {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  title        String     
+  slug       String @unique
+  logoUrl  String?
+  description String?
+  isActive  Boolean
+  
+  categoryIds String[]   @db.ObjectId
+  categories  Category[] @relation(fields: [categoryIds], references: [id])
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime?  @updatedAt
+}
+
+enum UserRole{
+  ADMIN
+  USER
+  VENDOR
+  MODERATOR
+}
+
+model User {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  email             String?   @unique
+  password          String
+  emailVerified     Boolean   @default(false)
+  products          Product[]
+  coupons           Coupon[]
+  role              UserRole  @default(USER)
+  plan              String?
+  verificationToken String?
+  status            Boolean   @default(false)
+  vendorProfile     VendorProfile?
+  profile           UserProfile? // Link to user profile
+  orders            Order[] // A user can have multiple orders
+  addresses         Address[] // A user can have multiple addresses
+  sales             Sale[]
+
+  reviews           Review[]  // A user can write multiple reviews
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model UserProfile {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @unique @db.ObjectId
+
+  // Personal Details
+  name              String?
+  email             String?
+  phone             String?
+
+  dateOfBirth       DateTime?
+  profileImageUrl   String?
+  
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Address {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String    @db.ObjectId
+
+  streetAddress1    String?
+  streetAddress2    String?
+  city              String?
+  state             String?
+  zipcode           String?
+  country           String?
+
+  // Flags to mark default addresses
+  defaultShipping   Boolean   @default(false)
+  defaultBilling    Boolean   @default(false)
+
+  // Relation to User
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model VendorProfile{
+ id                   String    @id @default(auto()) @map("_id") @db.ObjectId
+ code                 String 
+ contactPerson        String?
+ contactPersonPhone   String?
+ profileImageUrl      String?
+ firstName            String
+ lastName             String
+ notes                String?
+ phone                String
+ physicalAddress      String?
+ terms                String?
+ isActive             Boolean
+ products             String[]
+ 
+ user                 User @relation(fields: [userId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+ userId               String @db.ObjectId @unique
+
+ createdAt            DateTime  @default(now())
+ updatedAt            DateTime? @updatedAt
+}
+
+model Product {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  title             String    
+  slug              String @unique
+  imageUrl          String?
+  productImages     String[]
+  description       String?   
+  isActive          Boolean
+  isWholesale       Boolean
+  sku               String? @unique
+  barcode           String? @unique
+  productCode       String?
+  unit              String?
+  productPrice      Float
+  salePrice         Float
+  wholesalePrice    Float?
+  wholesaleQty      Int?
+  productStock      Int?
+  qty               Int?
+  tags              String[]
+  categoryId        String @db.ObjectId
+  category          Category  @relation(fields: [categoryId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+  
+  user              User @relation(fields: [userId], references: [id],onDelete: Cascade, onUpdate: Cascade)
+  userId            String  @db.ObjectId
+
+  orderItems          OrderItem[]
+  sales               Sale[]
+
+  reviews           Review[]  // A product can have many reviews
+
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime? @updatedAt
+}
+
+model Review {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  rating     Int      // Rating from 1 to 5
+  comment    String?  // Optional review comment
+  isApproved Boolean  @default(false) // For admin/vendor to approve reviews
+  productId  String   @db.ObjectId
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Order{
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String    @db.ObjectId
+
+  // Personal Details
+  name              String
+  email             String
+  phone             String
+
+  // Shipping Details
+  streetAddress1    String
+  streetAddress2    String?
+  city              String
+  state             String
+  country           String
+  zipcode           String
+
+  // Billing Details
+  billingStreetAddress1    String
+  billingStreetAddress2    String?
+  billingCity              String
+  billingState             String
+  billingCountry           String
+  billingZipcode           String
+
+  // Shipping Cost
+  shippingCost      Float
+
+  // Order Number
+  orderNumber       String?
+
+  // Payment method
+  paymentMethod     String
+
+  // Order Items
+  orderItems        OrderItem[]
+
+  // Status
+  orderStatus       OrderStatus @default(PROCESSING)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references:[id])
+  sales             Sale[]
+}
+
+model OrderItem{
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  orderId           String    @db.ObjectId
+  productId         String    @db.ObjectId
+  vendorId          String    @db.ObjectId
+  imageUrl          String?
+  title             String?
+  quantity          Int       
+  price             Float
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  order             Order     @relation(fields: [orderId], references: [id])
+  product           Product   @relation(fields: [productId], references: [id])
+}
+
+enum OrderStatus{
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+model Sale {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId       String   @db.ObjectId
+  productId     String   @db.ObjectId
+  vendorId      String   @db.ObjectId
+  total         Float
+  productTitle  String
+  productImage  String
+  productPrice  Float
+  productQty    Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  order         Order    @relation(fields: [orderId], references: [id])
+  product       Product  @relation(fields: [productId], references: [id])
+  vendor        User     @relation(fields: [vendorId], references: [id])
+}
