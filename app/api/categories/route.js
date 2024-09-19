@@ -44,6 +44,8 @@ export async function POST(request){
 
 export async function GET(request){
     try {
+        console.log("db connection:", db);
+        
         const categories = await db.category.findMany({
             orderBy: {
                 createdAt: "asc"
