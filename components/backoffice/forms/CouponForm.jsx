@@ -13,13 +13,17 @@ import { useForm } from "react-hook-form";
 
 export default function CouponForm({ updateData = {} }) {
   const { data: session, status } = useSession();
-  if (status === "loading") {
-    <p>loading...</p>;
-  }
+  if (status === "loading") return <p>Loading...</p>;
+  if (!session) return <p>You need to be logged in to create a coupon.</p>;
+
   const vendorId = session?.user?.id;
-  const expiryDateNormal = convertIsoDateToNormal(updateData.expiryDate);
+  const expiryDateNormal = updateData?.expiryDate
+    ? convertIsoDateToNormal(updateData.expiryDate)
+    : "";
   updateData.expiryDate = expiryDateNormal;
+
   const couponId = updateData?.id ?? "";
+
   const [loading, setLoading] = useState(false);
 
   const onFileChange = (file) => {
