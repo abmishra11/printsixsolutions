@@ -67,8 +67,6 @@ export default async function middleware(req) {
 
 export const config = {
     matcher: [
-        "/((?!api|_next/static|_next/image).*)",  // Exclude static assets
-        "/((?!.*\\.(png|jpg|jpeg|gif|svg|webp)).*)",  // Exclude common image formats
         "/dashboard/:path*",  // Match dashboard routes
         "/checkout"  // Match checkout route
     ]
