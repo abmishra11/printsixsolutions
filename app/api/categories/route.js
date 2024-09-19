@@ -42,29 +42,27 @@ export async function POST(request){
     }
 }
 
-export async function GET(request){
+export async function GET(request) {
     try {
-        console.log("db connection:", db);
-        
-        const categories = await db.category.findMany({
-            orderBy: {
-                createdAt: "asc"
-            },
-            include: {
-                products: true
-            }
-        })
-        return NextResponse.json(categories)
+      const categories = await db.category.findMany({
+        orderBy: {
+          createdAt: "asc",
+        },
+        include: {
+          products: true,
+        },
+      });
+      return NextResponse.json(categories);
     } catch (error) {
-        console.log(error);
-        return NextResponse.json(
-            {
-                message: "Failed to fetch categories",
-                error
-            },
-            {
-                status: 500
-            }
-        )
+      console.error("Error fetching categories:", error);
+      return NextResponse.json(
+        {
+          message: "Failed to fetch categories",
+          error: error.message,  // Log the error message
+        },
+        {
+          status: 500,
+        }
+      );
     }
-}
+}  
