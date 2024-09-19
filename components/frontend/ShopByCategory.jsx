@@ -23,7 +23,7 @@ export default function ShopByCategory({ categories }) {
               />
               <a
                 href={`/category/${category.slug}`}
-                className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-primary font-roboto font-medium group-hover:bg-opacity-50 transition"
+                className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-50 transition"
               >
                 {category.title}
               </a>
