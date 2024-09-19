@@ -87,10 +87,7 @@ export default function RegisterForm({ role = "USER" }) {
           />
         </div>
         <div>
-          <label
-            htmlFor="name"
-            className="text-white mb-2 block"
-          >
+          <label htmlFor="name" className="text-white mb-2 block">
             Your name
           </label>
           <input
@@ -109,10 +106,7 @@ export default function RegisterForm({ role = "USER" }) {
           )}
         </div>
         <div>
-          <label
-            htmlFor="email"
-            className="text-white mb-2 block"
-          >
+          <label htmlFor="email" className="text-white mb-2 block">
             Your email
           </label>
           <input
@@ -132,10 +126,7 @@ export default function RegisterForm({ role = "USER" }) {
           <small className="text-red-600 text-sm ">{emailErr}</small>
         </div>
         <div>
-          <label
-            htmlFor="password"
-            className="text-white mb-2 block"
-          >
+          <label htmlFor="password" className="text-white mb-2 block">
             Password
           </label>
           <input
@@ -170,18 +161,31 @@ export default function RegisterForm({ role = "USER" }) {
           </button>
         )}
         <div className="flex justify-center relative mt-6">
-          <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">OR SIGNUP IN WITH</div>
+          <div className="text-white uppercase px-3 bg-primary z-10 relative">
+            OR SIGNUP IN WITH
+          </div>
           <div className="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
         </div>
         <div className="flex mt-4 gap-4">
-            <Link href="#" className="w-1/2 p-2 text-center text-white bg-blue-800 rounded uppercase font-roboto font-medium text-sm hover:bg-blue-700">Facebook</Link>
-            <Link href="#" className="w-1/2 p-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm hover:bg-yellow-500">Google</Link>
+          <Link
+            href="#"
+            className="w-1/2 p-2 text-center text-white bg-blue-800 rounded uppercase font-roboto font-medium text-sm hover:bg-blue-700"
+          >
+            Facebook
+          </Link>
+          <Link
+            href="#"
+            className="w-1/2 p-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm hover:bg-yellow-500"
+          >
+            Google
+          </Link>
         </div>
         <p className="text-sm font-light text-white">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-medium text-primary hover:underline"          >
+            className="font-medium text-primary hover:underline"
+          >
             Login
           </Link>
         </p>
