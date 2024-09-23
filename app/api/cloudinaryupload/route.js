@@ -11,21 +11,27 @@ cloudinary.config({
 })
 
 export async function POST(request){
-    const session = await getServerSessio(authOptions);
+    console.log("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+    console.log("api_key", process.env.CLOUDINARY_API_KEY);
+    console.log("api_secret", process.env.CLOUDINARY_API_SECRET);
+    
+    const session = await getServerSession(authOptions);
     const role = session?.user?.role;
     if (!role) {
-        return NextResponse.json(
+        return NextResponse.json({
             error:  "Unauthorized",
             message: "You must be logged in to perform this action",
             status: 401
-        )
+        })
     }
 
     try{
-        const formdata = await req.formData();
+        const formdata = await request.formData();
         const filename = formdata.get("filename");
         const folder = formdata.get("folder");
         const file = formdata.get(filename);
+        console.log("file:", file);
+        const coudinaryFolderName = 'printsixsolutions/'+folder;
       
         if (!file) {
           return NextResponse.json({ error: "No file found" }, { status: 400 });
@@ -37,7 +43,7 @@ export async function POST(request){
         const uploadResult = await new Promise(
             (resolve, reject) => {
                 const  uploadStream = cloudinary.uploader.upload_stream(
-                    { folder:  folder },
+                    { folder:  coudinaryFolderName },
                     (error, result) => {
                         if(error) reject (error);
                         else resolve(result);
@@ -46,7 +52,9 @@ export async function POST(request){
                 uploadStream.end(buffer)
             }
         )
-        return NextResponse.json({publicId: result.public_id}, {status: 200})
+        console.log("uploadResult:", uploadResult);
+        console.log("imageUrl: ", uploadResult.secure_url);
+        return NextResponse.json({imageUrl: uploadResult.secure_url}, {status: 200})
     } catch (error){
         console.error("Upload Image Failed", error);
         return NextResponse.json({error: "Upload Image Failed"}, {status: 500})

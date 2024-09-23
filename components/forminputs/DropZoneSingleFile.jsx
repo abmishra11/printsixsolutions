@@ -28,14 +28,28 @@ export default function DropZoneSingleFiles({
       formData.append("folder", uploadingFolderName);
 
       try {
-        const response = await fetch("/api/uploadimage", {
+        // const response = await fetch("/api/uploadimage", {
+        //   method: "POST",
+        //   body: formData,
+        // });
+        // if (response.ok) {
+        //   const responseData = await response.json();
+        //   console.log("Image uploaded successfully!");
+        //   return responseData.imageUrl;
+        // } else {
+        //   alert("Failed to upload image.");
+        //   return "";
+        // }
+
+        const response = await fetch("/api/cloudinaryupload", {
           method: "POST",
           body: formData,
         });
 
-        if (response.ok) {
+        if (response.status === 200) {
           const responseData = await response.json();
           console.log("Image uploaded successfully!");
+          console.log("imageUrl: ", responseData.imageUrl);
           return responseData.imageUrl;
         } else {
           alert("Failed to upload image.");
@@ -56,6 +70,7 @@ export default function DropZoneSingleFiles({
       setLoading(true);
       if (acceptedFile) {
         const imageUrl = await handleImageChange(acceptedFile[0]);
+        console.log("imageUrl: ", imageUrl);
         imageUrl ? setImageFile(imageUrl) : setImageFile("");
       }
 
