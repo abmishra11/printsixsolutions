@@ -48,8 +48,6 @@ export default function DropZoneSingleFiles({
 
         if (response.status === 200) {
           const responseData = await response.json();
-          console.log("Image uploaded successfully!");
-          console.log("imageUrl: ", responseData.imageUrl);
           return responseData.imageUrl;
         } else {
           alert("Failed to upload image.");
