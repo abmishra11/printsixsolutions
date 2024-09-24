@@ -14,10 +14,7 @@ export default function SearchForm() {
   }
   return (
     <>
-      <form
-        className="w-full max-w-xl relative flex"
-        onSubmit={handleSubmit(handleSearch)}
-      >
+      <form className="relative flex" onSubmit={handleSubmit(handleSearch)}>
         <span className="absolute left-4 top-3 text-lg text-gray-400">
           <Search />
         </span>

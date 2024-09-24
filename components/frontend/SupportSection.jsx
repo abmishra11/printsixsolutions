@@ -5,7 +5,7 @@ import React from "react";
 export default function SupportSection() {
   return (
     <div className="container py-16">
-      <div className="w-10/12 grid grid-cols-3 gap-6 mx-auto justify-center">
+      <div className="w-10/12 grid md:grid-cols-3 sm:grid-cols-1 gap-6 mx-auto justify-center">
         <div className="bg-primary border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
           <Truck className="w-12 h-12" />
           <div>

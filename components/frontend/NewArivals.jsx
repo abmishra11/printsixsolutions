@@ -9,7 +9,7 @@ export default function NewArivals({ products }) {
       <h2 className="text-2xl font-medium text-primary uppercase mb-6">
         Top New Arrivals
       </h2>
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1 gap-6">
         {products.slice(0, 8).map((product, i) => {
           return <Product product={product} key={i} />;
         })}

@@ -4,10 +4,10 @@ import React from "react";
 export default function ShopByCategory({ categories }) {
   return (
     <div className="container pb-16">
-      <h2 className="text-3xl font-medium text-primary uppercase mb-6">
+      <h2 className="text-2xl font-medium text-primary uppercase mb-6">
         Shop By Category
       </h2>
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1 gap-3">
         {categories.map((category) => {
           return (
             <div
