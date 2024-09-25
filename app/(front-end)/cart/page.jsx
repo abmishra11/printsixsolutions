@@ -14,7 +14,7 @@ export default function Cart() {
     }, 0)
     .toFixed(2);
   return (
-    <div className="container mx-auto py-16">
+    <div className="container mx-auto py-8">
       <Breadcrumb />
       {cartItems.length > 0 ? (
         <div className="grid grid-cols-12 gap-6 md:gap-14">

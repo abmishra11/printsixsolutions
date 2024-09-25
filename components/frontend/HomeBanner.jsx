@@ -53,7 +53,7 @@ export default function HomeBanner() {
     >
       <div className="container lg:py-36 md:py-36 py-8">
         <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-medium lg:mb-16 md:mb-16 mb-4 capitalize">
-          Increase print profits <br /> by lowering costs.
+          Increase print profits <br /> by lowering costs
         </h1>
         <p className="text-primary lg:mb-16 md:mb-16 mb-8">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nulla

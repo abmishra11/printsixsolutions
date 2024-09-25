@@ -80,20 +80,18 @@ export default function LoginForm() {
           </small>
         )}
       </div>
-      <div className="flex items-center justify-between mt-6 mb-6">
+      <div className="mt-6 mb-6">
+        {/* Remember Me Section */}
         <div className="flex items-center">
           <input
             type="checkbox"
             id="agreement"
-            className="text-primary focus:ring-0 rounded-sm cursor-pointer"
+            className="text-primary focus:ring-primary focus:ring-2 focus:outline-none rounded-sm cursor-pointer"
           />
           <label htmlFor="agreement" className="text-white ml-3 cursor-pointer">
             Remember Me
           </label>
         </div>
-        <Link href="#" className="text-primary">
-          Forgot Password?
-        </Link>
       </div>
       {loading ? (
         <button
@@ -111,6 +109,12 @@ export default function LoginForm() {
           Login
         </button>
       )}
+      <div>
+        {/* Forgot Password Link */}
+        <Link href="#" className="text-primary hover:underline">
+          Forgot Password?
+        </Link>
+      </div>
     </form>
   );
 }
