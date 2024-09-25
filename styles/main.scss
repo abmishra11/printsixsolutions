@@ -96,6 +96,12 @@
   background: #555;
 }
 
+html,
+body {
+  height: 100%;
+  overflow-y: auto;
+}
+
 .swiper {
   width: 100%;
   height: 100%;
