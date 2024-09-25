@@ -45,96 +45,30 @@ export default function HomeBanner() {
   ];
 
   return (
-    <Carousel
-      autoplay
-      defaultControlsConfig={config}
-      className="rounded-md"
-      showArrows
+    <div
+      className="bg-cover bg-no-repeat bg-center w-full"
+      style={{
+        backgroundImage: `url(/upload/bannerimage/home-banner-one.jpg)`,
+      }}
     >
-      {/* {banners.map((banner) => {
-        <div
-          key={banner.id} // Always add a unique key when mapping over items
-          className="bg-cover bg-no-repeat bg-center py-36 w-full"
-          style={{
-            backgroundImage: `url(/upload/bannerimage/${banner.image})`,
-          }}
-        >
-          <div className="container">
-            <h1 className="text-6xl text-white font-medium mb-4 capitalize">
-              Increase print profits <br /> by lowering costs.
-            </h1>
-            <p className="text-primary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nulla
-              <br /> saepe blanditiis vitae officiis alias facere laudantium
-              reprehenderit et id quae porro nam aperiam placeat illum delectus,
-              tenetur esse! Quod!
-            </p>
-            <div className="mt-12">
-              <a
-                href="/shop"
-                className="bg-primary border border-primary text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-primary transition"
-              >
-                Shop Now
-              </a>
-            </div>
-          </div>
-        </div>;
-      })} */}
-
-      <div
-        className="bg-cover bg-no-repeat bg-center py-36 w-full"
-        style={{
-          backgroundImage: `url(/upload/bannerimage/home-banner-one.jpg)`,
-        }}
-      >
-        <div className="container">
-          <h1 className="text-6xl text-white font-medium mb-4 capitalize">
-            Increase print profits <br /> by lowering costs.
-          </h1>
-          <p className="text-primary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nulla
-            <br /> saepe blanditiis vitae officiis alias facere laudantium
-            reprehenderit et id quae porro nam aperiam placeat illum delectus,
-            tenetur esse! Quod!
-          </p>
-          <div className="mt-12">
-            <a
-              href="/shop"
-              className="bg-primary border border-primary text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-primary transition"
-            >
-              Shop Now
-            </a>
-          </div>
+      <div className="container lg:py-36 md:py-36 py-8">
+        <h1 className="lg:text-6xl md:text-4xl text-2xl text-white font-medium lg:mb-16 md:mb-16 mb-4 capitalize">
+          Increase print profits <br /> by lowering costs.
+        </h1>
+        <p className="text-primary lg:mb-16 md:mb-16 mb-8">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nulla
+          <br /> saepe blanditiis vitae officiis alias sit amet consectetur
+          adipisicing elit
+        </p>
+        <div>
+          <a
+            href="/shop"
+            className="bg-primary border border-primary text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-primary transition"
+          >
+            Shop Now
+          </a>
         </div>
       </div>
-      {/* <Image
-        src="/upload/bannerimage/home-banner-one.jpg"
-        className="w-full"
-        width={750}
-        height={556}
-        alt="Vegetables"
-      />
-      <Image
-        src="/upload/bannerimage/home-banner-two.jpg"
-        className="w-full"
-        width={750}
-        height={556}
-        alt="Vegetables"
-      />
-      <Image
-        src="/upload/bannerimage/home-banner-three.jpg"
-        className="w-full"
-        width={750}
-        height={556}
-        alt="Vegetables"
-      />
-      <Image
-        src="/upload/bannerimage/home-banner-four.jpg"
-        className="w-full"
-        width={750}
-        height={556}
-        alt="Vegetables"
-      /> */}
-    </Carousel>
+    </div>
   );
 }
