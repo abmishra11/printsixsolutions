@@ -20,7 +20,7 @@ export default async function Home() {
   const products = await getData("products");
 
   return (
-    <div className="min-h-screen overflow-y-auto">
+    <div className="min-h-screen">
       <HomeBanner/>
       <SupportSection/>
       <ShopByCategory categories={categories}/>
