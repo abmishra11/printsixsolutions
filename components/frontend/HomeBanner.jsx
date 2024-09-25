@@ -48,7 +48,7 @@ export default function HomeBanner() {
     <Carousel
       autoplay
       defaultControlsConfig={config}
-      className="rounded-md overflow-hidden"
+      className="rounded-md"
       showArrows
     >
       {/* {banners.map((banner) => {
