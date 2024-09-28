@@ -198,7 +198,7 @@ export default async function BillingDetailsForm({ addresses }) {
 
         {!isAddingNewAddress && currentAddresses.length > 0 && (
           <div className="flex flex-col justify-between">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-4">
               <div>
                 <label
                   htmlFor="addressSelect"

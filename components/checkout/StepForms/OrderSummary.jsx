@@ -69,9 +69,9 @@ export default function OrderSummary() {
         return (
           <div
             key={i}
-            className="flex items-center justify-between border-b border-slate-400 pb-3 font-semibold text-sm mb-4"
+            className="grid grid-cols-2 border-b border-slate-400 pb-3 font-semibold text-sm mb-4"
           >
-            <div className="flex items-center gap-3">
+            <div className="md:col-span-1 flex items-center gap-3">
               <Image
                 src={cartItem.imageUrl}
                 width={249}
@@ -83,17 +83,19 @@ export default function OrderSummary() {
                 <h2>{cartItem.title}</h2>
               </div>
             </div>
-            <div className="rounded-xl border border-gray-400 flex gap-3 items-center">
-              <p className="flex-grow py-2 px-4">{cartItem.qty}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <h4>${cartItem.salePrice}</h4>
+            <div className="md:col-span-1 flex items-center justify-between">
+              <div className="rounded-xl border border-gray-400 flex gap-3 items-center">
+                <p className="flex-grow py-2 px-4">{cartItem.qty}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <h4>${cartItem.salePrice}</h4>
+              </div>
             </div>
           </div>
         );
       })}
 
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4 flex flex-col md:flex-row md:items-center justify-between">
         <button
           onClick={handlePrevious}
           type="button"
