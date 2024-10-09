@@ -14,6 +14,7 @@ export default function OrderSummary() {
   const checkoutFormData = useSelector(
     (store) => store.checkout.checkoutFormData
   );
+
   const currentStep = useSelector((store) => store.checkout.currentStep);
   const dispatch = useDispatch();
   function handlePrevious() {
@@ -22,11 +23,13 @@ export default function OrderSummary() {
   }
 
   const cartItems = useSelector((store) => store.cart);
-  const subTotal = cartItems
-    .reduce((acc, item) => {
-      return acc + item.salePrice * item.qty;
-    }, 0)
-    .toFixed(2);
+
+  const subTotal = cartItems.reduce((acc, item) => {
+    return acc + item.salePrice * item.qty;
+  }, 0);
+
+  const shippingCost = parseFloat(checkoutFormData.shippingCost).toFixed(2);
+  const total = (parseFloat(subTotal) + parseFloat(shippingCost)).toFixed(2);
 
   async function submitData() {
     const data = {
@@ -69,9 +72,9 @@ export default function OrderSummary() {
         return (
           <div
             key={i}
-            className="flex items-center justify-between border-b border-slate-400 pb-3 font-semibold text-sm mb-4"
+            className="grid grid-cols-2 border-b border-slate-400 pb-3 font-semibold text-sm mb-4"
           >
-            <div className="flex items-center gap-3">
+            <div className="col-span-1 flex items-center gap-3">
               <Image
                 src={cartItem.imageUrl}
                 width={249}
@@ -83,21 +86,30 @@ export default function OrderSummary() {
                 <h2>{cartItem.title}</h2>
               </div>
             </div>
-            <div className="rounded-xl border border-gray-400 flex gap-3 items-center">
-              <p className="flex-grow py-2 px-4">{cartItem.qty}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <h4>${cartItem.salePrice}</h4>
+            <div className="col-span-1 flex items-center justify-between">
+              <div className="rounded-xl border border-gray-400 flex gap-3 items-center">
+                <p className="flex-grow py-2 px-4">{cartItem.qty}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <h4>${cartItem.salePrice.toFixed(2)}</h4>
+              </div>
             </div>
           </div>
         );
       })}
-
-      <div className="mt-4 flex items-center justify-between">
+      <div className="flex items-center justify-between border-b border-slate-400 pb-3 font-semibold text-sm mb-4">
+        <div>Shipping Cost</div>
+        <div>${shippingCost}</div>
+      </div>
+      <div className="flex items-center justify-between border-b border-slate-400 pb-3 font-semibold text-sm mb-4">
+        <div>Total</div>
+        <div>${total}</div>
+      </div>
+      <div className="flex items-center justify-between">
         <button
           onClick={handlePrevious}
           type="button"
-          className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+          className="col-span-1 inline-flex items-center px-3 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
         >
           <ChevronLeft className="w-5 h-5 mr-2" />
           <span>Previous</span>
@@ -105,14 +117,14 @@ export default function OrderSummary() {
         {loading ? (
           <button
             disabled
-            className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+            className="inline-flex items-center px-3 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
           >
             Processing please wait...
           </button>
         ) : (
           <button
             onClick={submitData}
-            className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+            className="col-span-1 inline-flex items-center px-3 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
           >
             <span>Proceed to Payment</span>
             <ChevronRight className="w-5 h-5 mr-2" />

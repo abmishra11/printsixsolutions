@@ -6,12 +6,12 @@ export default function Login() {
     <section className="min-h-screen flex items-center justify-center">
       <div className="container py-16">
         <div className="max-w-lg mx-auto rounded-lg shadow-2xl p-10 bg-gray-800 border-gray-700 overflow-hidden">
-          <h2 className="text-2xl uppercase font-medium mb-1">Login</h2>
+          <h2 className="text-2xl font-medium mb-1">Login</h2>
           <p className="text-white mb-6 text-sm">
             Login if you are a returning customer
           </p>
           <LoginForm />
-          <div className="flex justify-center relative mt-6">
+          {/* <div className="flex justify-center relative mt-6">
             <div className="text-white uppercase px-3 bg-primary z-10 relative">
               Or login with
             </div>
@@ -30,8 +30,8 @@ export default function Login() {
             >
               Google
             </Link>
-          </div>
-          <p className="mt-4 text-white text-center">
+          </div> */}
+          <p className="mt-4 text-white">
             Don&apos;t have an account?{" "}
             <Link href={"/register"} className="text-primary">
               Register now

@@ -22,7 +22,7 @@ export default function Product({ product }) {
               className="w-full h-48 object-cover"
             />
           </div>
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+          {/* <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
             <Link
               href="#"
               className="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
@@ -35,7 +35,7 @@ export default function Product({ product }) {
             >
               <Heart />
             </Link>
-          </div>
+          </div> */}
         </Link>
       </div>
       <div className="pt-4 pb-3 px-4 space-y-4">

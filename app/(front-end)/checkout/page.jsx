@@ -15,7 +15,7 @@ export default async function page() {
   const userid = user.id;
 
   const userData = await getData(`userprofile/${userid}`);
-  console.log(userData);
+
   const addresses = await getData(`customer/address/customeraddress/${userid}`);
 
   const steps = [

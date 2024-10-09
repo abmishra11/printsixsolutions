@@ -72,7 +72,7 @@ export default function PriceFilter({ slug }) {
           <div className="col-span-1">
             <button
               type="submit"
-              className="text-white bg-primary hover:bg-white focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-3 py-1 focus:outline-none"
+              className="text-white bg-primary focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-3 py-1 focus:outline-none"
             >
               Go
             </button>

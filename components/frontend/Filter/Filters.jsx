@@ -5,7 +5,7 @@ import BrandFilter from "./BrandFilter";
 import CategoryFilter from "./CategoryFilter";
 import { Filter } from "lucide-react";
 
-export default function Filters({ slug }) {
+export default function Filters({ slug, categories }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
 
   const toggleFilters = () => {
@@ -14,8 +14,13 @@ export default function Filters({ slug }) {
 
   return (
     <div>
-      <div className="md:hidden text-primary py-2 rounded">
-        <button onClick={toggleFilters}>Filters</button>
+      <div className="md:hidden">
+        <button
+          onClick={toggleFilters}
+          className="p-2 border border-primary rounded-md bg-primary text-white text-xs"
+        >
+          {filtersVisible ? "Hide Filters" : "Show Filters"}
+        </button>
       </div>
       <div
         className={`${
@@ -23,7 +28,7 @@ export default function Filters({ slug }) {
         } md:flex flex-col space-y-5 py-4 px-4 divide-y divide-gray-200 bg-white mt-4 md:mt-0 shadow rounded overflow-hidden`}
       >
         {/* Category Filter */}
-        <CategoryFilter />
+        <CategoryFilter categories={categories} />
 
         {/* Price Filter */}
         <PriceFilter slug={slug} />

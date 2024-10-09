@@ -39,10 +39,9 @@ export default async function middleware(req) {
     
     // Check if the route matches any of the public routes or the root
     const isPublicRoute = PUBLIC_ROUTES.some(route => url.startsWith(route)) || nextUrl.pathname === ROOT;
-
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const role = token?.role;
-
+    
     // If the user is not authenticated and the route is not public, redirect to login
     if (!role && !isPublicRoute) {
         return NextResponse.redirect(new URL(LOGIN, req.url));

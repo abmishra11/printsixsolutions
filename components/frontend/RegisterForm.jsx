@@ -155,12 +155,12 @@ export default function RegisterForm({ role = "USER" }) {
         ) : (
           <button
             type="submit"
-            className="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium"
+            className="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-white hover:text-primary transition uppercase font-roboto font-medium"
           >
             Sign Up
           </button>
         )}
-        <div className="flex justify-center relative mt-6">
+        {/* <div className="flex justify-center relative mt-6">
           <div className="text-white uppercase px-3 bg-primary z-10 relative">
             OR SIGNUP IN WITH
           </div>
@@ -179,7 +179,7 @@ export default function RegisterForm({ role = "USER" }) {
           >
             Google
           </Link>
-        </div>
+        </div> */}
         <p className="text-sm font-light text-white">
           Already have an account?{" "}
           <Link

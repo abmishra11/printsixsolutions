@@ -2,10 +2,7 @@ import { getData } from "@/lib/getData";
 import Link from "next/link";
 import React from "react";
 
-export default async function CategoryFilter() {
-  const categories = await getData("categories");
-  console.log("Fileter categories: ", categories);
-
+export default function CategoryFilter({ categories }) {
   return (
     <div>
       <h3 className="text-xl text-gray-800 mb-3 font-medium">Categories</h3>

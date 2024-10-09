@@ -46,10 +46,6 @@ export const columns = [
     header: "Contact No",
   },
   {
-    accessorKey: "shippingCost",
-    header: "Shipping Cost",
-  },
-  {
     accessorKey: "paymentMethod",
     header: "Payment Method",
   },
@@ -60,7 +56,7 @@ export const columns = [
   },
   {
     accessorKey: "createdAt",
-    header: "Created Date",
+    header: "Order Date",
     cell: ({ row }) => <DateColumns row={row} accessorKey={"createdAt"} />,
   },
   {

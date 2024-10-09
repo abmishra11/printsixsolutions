@@ -131,8 +131,6 @@ export default function ShippingDetailsForm({ addresses }) {
         const newAddressId = newAddedAddresses[0]?.id;
 
         if (response.ok) {
-          console.log("newAddressId", newAddressId);
-
           shippingFormData = {
             shippingAddress: {
               shippingAddressId: newAddressId,
@@ -194,7 +192,7 @@ export default function ShippingDetailsForm({ addresses }) {
                   country: selectedAddress.country,
                 });
               }}
-              className="mt-4 w-full p-2 border border-blue-500 rounded-md text-blue-500 hover:bg-blue-100"
+              className="mt-4 w-full p-2 border border-primary rounded-md bg-primary text-white hover:bg-white hover:text-gray-900"
             >
               Select From Addresses
             </button>
@@ -202,72 +200,68 @@ export default function ShippingDetailsForm({ addresses }) {
         )}
 
         {!isAddingNewAddress && addresses.length > 0 && (
-          <div className="flex flex-col justify-between">
-            <div className="flex justify-between items-center mb-4">
-              <div>
-                <label
-                  htmlFor="addressSelect"
-                  className="block text-sm font-medium text-gray-50"
-                >
-                  Select Shipping Address from your Address Book
-                </label>
-                <select
-                  id="addressSelect"
-                  className="mt-2 block w-full p-4 border border-primary rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800"
-                  value={selectedAddress?.shippingAddressId || ""}
-                  onChange={(e) => {
-                    const selected = addresses.find(
-                      (address) => address.id === e.target.value
-                    );
-                    setSelectedAddress({
-                      shippingAddressId: selected.id,
-                      streetAddress1: selected.streetAddress1,
-                      streetAddress2: selected.streetAddress2,
-                      city: selected.city,
-                      state: selected.state,
-                      zipcode: selected.zipcode,
-                      country: selected.country,
-                    });
-                  }}
-                >
-                  {addresses.map((address) => (
-                    <option
-                      key={address.id}
-                      value={address.id}
-                      selected={
-                        address.id === selectedAddress.shippingAddressId
-                      }
-                      className="p-4"
-                    >
-                      {address.streetAddress1}
-                      {address.streetAddress2 &&
-                        " " + address.streetAddress2 + ", "}
-                      {address.city}, {address.state}, {address.zipcode},{" "}
-                      {address.country}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsAddingNewAddress(true);
-                    reset({
-                      shippingAddressId: "",
-                      streetAddress1: "",
-                      streetAddress2: "",
-                      city: "",
-                      state: "",
-                      zipcode: "",
-                      country: "",
-                    });
-                  }}
-                  className="mt-7 w-full p-4 border border-primary rounded-md bg-primary text-white hover:bg-white hover:text-gray-900"
-                >
-                  Add New Address
-                </button>
-              </div>
+          <div className="grid md:grid-cols-2 gap-8 mb-4">
+            <div className="col-span-1">
+              <label
+                htmlFor="addressSelect"
+                className="block text-sm font-medium text-gray-50"
+              >
+                Select Shipping Address from your Address Book
+              </label>
+              <select
+                id="addressSelect"
+                className="mt-2 block w-full p-2 border border-primary rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-slate-800"
+                value={selectedAddress?.shippingAddressId || ""}
+                onChange={(e) => {
+                  const selected = addresses.find(
+                    (address) => address.id === e.target.value
+                  );
+                  setSelectedAddress({
+                    shippingAddressId: selected.id,
+                    streetAddress1: selected.streetAddress1,
+                    streetAddress2: selected.streetAddress2,
+                    city: selected.city,
+                    state: selected.state,
+                    zipcode: selected.zipcode,
+                    country: selected.country,
+                  });
+                }}
+              >
+                {addresses.map((address) => (
+                  <option
+                    key={address.id}
+                    value={address.id}
+                    selected={address.id === selectedAddress.shippingAddressId}
+                    className="p-2"
+                  >
+                    {address.streetAddress1}
+                    {address.streetAddress2 &&
+                      " " + address.streetAddress2 + ", "}
+                    {address.city}, {address.state}, {address.zipcode},{" "}
+                    {address.country}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-span-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsAddingNewAddress(true);
+                  reset({
+                    shippingAddressId: "",
+                    streetAddress1: "",
+                    streetAddress2: "",
+                    city: "",
+                    state: "",
+                    zipcode: "",
+                    country: "",
+                  });
+                }}
+                className="md:mt-7 w-full p-2 border border-primary rounded-md bg-primary text-white hover:bg-white hover:text-gray-900"
+              >
+                Add New Address
+              </button>
             </div>
           </div>
         )}
