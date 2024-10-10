@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import DashboardNotifications from "./DashboardNotifications";
 import { getData } from "@/lib/getData";
 
-export default function Navbar() {
+export default function Navbar({ showSideBar, setShowSideBar }) {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -29,12 +29,15 @@ export default function Navbar() {
         PrintSix
       </Link>
       {/* { Icon } */}
-      <button className="text-lime-700 dark:text-lime-500">
+      <button
+        className="text-lime-700 dark:text-lime-500"
+        onClick={() => setShowSideBar(!showSideBar)}
+      >
         <AlignJustify />
       </button>
       {/* { 3 Icons } */}
       <div className="flex space-x-3">
-        <ThemeSwitcherBtn />
+        {/* <ThemeSwitcherBtn /> */}
         <DashboardNotifications user={session?.user} />
         {status === "authenticated" && <UserAvatar user={session?.user} />}
       </div>

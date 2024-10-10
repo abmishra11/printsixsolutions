@@ -15,7 +15,7 @@ export default function AddToCartButton({ product }) {
   return (
     <button
       onClick={() => handleAddToCart()}
-      className="block w-full py-2 text-center rounded-lg text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition"
+      className="block w-full py-2 text-center rounded-lg text-white bg-primary border border-primary rounded-b hover:bg-white hover:text-primary transition"
     >
       {/* <BaggageClaim /> */}
       <span>Add to Cart</span>

@@ -29,7 +29,7 @@ import {
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-export default function Sidebar() {
+export default function Sidebar({ showSideBar }) {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -166,7 +166,13 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="sm:block mt-20 sm:mt-0 dark:bg-slate-800 bg-white space-y-6 w-64 h-screen text-slate-800 dark:text-slate-300 fixed left-0 top-0 shadow-md overflow-y-scroll">
+    <div
+      className={
+        showSideBar
+          ? "sm:block mt-20 sm:mt-0 dark:bg-slate-800 bg-white space-y-6 w-64 h-screen text-slate-800 dark:text-slate-300 fixed left-0 top-0 shadow-md overflow-y-scroll"
+          : "hidden sm:block mt-20 sm:mt-0 dark:bg-slate-800 bg-white space-y-6 w-64 h-screen text-slate-800 dark:text-slate-300 fixed left-0 top-0 shadow-md overflow-y-scroll"
+      }
+    >
       <div className="flex flex-col items-center px-6 py-4">
         <Link href="/dashboard">
           <Image src={logo} alt="logo" className="w-full" />

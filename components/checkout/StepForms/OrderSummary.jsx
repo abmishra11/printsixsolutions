@@ -72,9 +72,9 @@ export default function OrderSummary() {
         return (
           <div
             key={i}
-            className="grid grid-cols-2 border-b border-slate-400 pb-3 font-semibold text-sm mb-4"
+            className="grid md:grid-cols-2 py-4 border-b border-slate-400 font-semibold"
           >
-            <div className="flex items-center gap-3">
+            <div className="col-span-1 flex items-center gap-3 md:mb-0 mb-4">
               <Image
                 src={cartItem.imageUrl}
                 width={249}
@@ -86,21 +86,36 @@ export default function OrderSummary() {
                 <h2>{cartItem.title}</h2>
               </div>
             </div>
-            <div className="rounded-xl border border-gray-400 flex gap-3 items-center">
-              <p className="flex-grow py-2 px-4">{cartItem.qty}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <h4>${cartItem.salePrice}</h4>
+            <div className="col-span-1 flex items-center justify-between">
+              <p className="rounded-xl border border-gray-400 py-2 px-4">
+                {cartItem.qty}
+              </p>
+              <h4>${parseFloat(cartItem.salePrice).toFixed(2)}</h4>
             </div>
           </div>
         );
       })}
-
+      <div className="flex items-center justify-between py-4 border-b border-slate-400 font-semibold">
+        <div>
+          <h4>Shipping Cost</h4>
+        </div>
+        <div>
+          <h4>${shippingCost}</h4>
+        </div>
+      </div>
+      <div className="flex items-center justify-between py-4 border-b border-slate-400 font-semibold">
+        <div>
+          <h4>Total</h4>
+        </div>
+        <div>
+          <h4>${total}</h4>
+        </div>
+      </div>
       <div className="mt-4 flex items-center justify-between">
         <button
           onClick={handlePrevious}
           type="button"
-          className="col-span-1 inline-flex items-center px-3 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+          className="col-span-1 inline-flex items-center px-3 py-3 mt-4 sm:mt-6 font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
         >
           <ChevronLeft className="w-5 h-5 mr-2" />
           <span>Previous</span>
@@ -108,14 +123,14 @@ export default function OrderSummary() {
         {loading ? (
           <button
             disabled
-            className="inline-flex items-center px-3 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+            className="inline-flex items-center px-3 py-3 mt-4 sm:mt-6 font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
           >
             Processing please wait...
           </button>
         ) : (
           <button
             onClick={submitData}
-            className="col-span-1 inline-flex items-center px-3 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+            className="col-span-1 inline-flex items-center px-3 py-3 mt-4 sm:mt-6 font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
           >
             <span>Proceed to Payment</span>
             <ChevronRight className="w-5 h-5 mr-2" />

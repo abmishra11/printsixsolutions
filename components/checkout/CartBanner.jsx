@@ -20,7 +20,7 @@ export default function CartBanner() {
             <div className="inline-flex items-center justify-center flex-shrink-0 bg-primary rounded-full w-9 h-9 text-white">
               <ShoppingBag className="w-6 h-6" />
             </div>
-            <p className="ml-3 text-base font-normal text-primary">
+            <p className="ml-3 font-normal text-primary">
               You have {cartItems.length} items in cart. Sub total is{" "}
               <span className="font-bold">${subTotal}</span>
             </p>
@@ -29,7 +29,7 @@ export default function CartBanner() {
             <Link
               href={"/cart"}
               type="button"
-              className="inline-flex items-center px-4 py-2 text-sm font-bold text-white transition-all duration-200 border border-gray-300 rounded-md bg-primary hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:text-gray-900 focus:ring-offset-2 focus:ring-gray-500"
+              className="inline-flex items-center px-4 py-2 font-bold text-white transition-all duration-200 border border-gray-300 rounded-md bg-primary hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:text-gray-900 focus:ring-offset-2 focus:ring-gray-500"
             >
               Edit cart
             </Link>

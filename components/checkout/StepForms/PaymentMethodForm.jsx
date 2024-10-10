@@ -52,7 +52,7 @@ export default function PaymentMethodForm() {
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         {/* Payment Method */}
         <div className="col-span-full">
-          <h3 className="mb-5 text-sm font-medium text-gray-900 dark:text-white">
+          <h3 className="mb-5 font-medium text-gray-900 dark:text-white">
             Which payment method do you prefer ?
           </h3>
           <ul className="grid w-full gap-6 md:grid-cols-2">

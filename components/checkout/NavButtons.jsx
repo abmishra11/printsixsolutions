@@ -15,7 +15,7 @@ export default function NavButtons() {
         <button
           onClick={handlePrevious}
           type="submit"
-          className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+          className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
         >
           <ChevronLeft className="w-5 h-5 mr-2" />
           <span>Previous</span>
@@ -23,7 +23,7 @@ export default function NavButtons() {
       )}
       <button
         type="submit"
-        className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
+        className="inline-flex items-center px-6 py-3 mt-4 sm:mt-6 font-medium text-center text-white bg-primary rounded-lg focus:ring-4 focus:ring-primary dark:focus:ring-primary hover:bg-slate-800 dark:bg-primary dark:hover:bg-white dark:hover:text-slate-800"
       >
         <span>Next</span>
         <ChevronRight className="w-5 h-5 mr-2" />

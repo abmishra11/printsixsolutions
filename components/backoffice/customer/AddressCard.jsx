@@ -34,7 +34,7 @@ export default function AddressCard({
         <div>
           <Link
             href={`/dashboard/customer/addresses/${address.id}`}
-            className="bg-yellow-500 text-white py-2 px-4 rounded mb-2 sm:mb-0 sm:mr-2"
+            className="bg-primary text-white py-2 px-4 rounded mb-2 sm:mb-0 sm:mr-2"
           >
             Edit
           </Link>
@@ -54,12 +54,12 @@ export default function AddressCard({
       <div className="flex flex-col sm:flex-row justify-between">
         <div className="mb-4">
           {defaultBilling ? (
-            <span className="bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-sm mr-2">
+            <span className="bg-primary text-white px-4 py-2 rounded mr-2">
               Default Billing Address
             </span>
           ) : (
             <button
-              className={`bg-blue-500 text-white py-2 px-4 rounded mb-2 sm:mb-0 sm:mr-2 ${
+              className={`bg-green-500 text-white py-2 px-4 rounded mb-2 sm:mb-0 sm:mr-2 ${
                 defaultBilling ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={() => onSetDefaultBilling(address.id)}
@@ -71,7 +71,7 @@ export default function AddressCard({
             </button>
           )}
           {defaultShipping ? (
-            <span className="bg-green-200 text-green-800 px-2 py-1 rounded-full text-sm">
+            <span className="bg-primary text-white px-4 py-2 rounded">
               Default Shipping Address
             </span>
           ) : (

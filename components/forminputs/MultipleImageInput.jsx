@@ -17,7 +17,7 @@ export default function MultipleImageInput({
       <div className="flex justify-between items-center mb-2">
         <label
           htmlFor="course-image"
-          className="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-50"
+          className="block font-medium leading-6 text-gray-900 dark:text-slate-50"
         >
           {label}
         </label>

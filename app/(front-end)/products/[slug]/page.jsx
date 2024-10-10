@@ -21,6 +21,8 @@ import React from "react";
 
 export default async function ProductDetailPage({ params: { slug } }) {
   const product = await getData(`/products/product/${slug}`);
+  console.log("product: ", product);
+
   const catId = product.categoryId;
   const category = await getData(`categories/${catId}`);
   const categoryProducts = category.products;
@@ -31,29 +33,29 @@ export default async function ProductDetailPage({ params: { slug } }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${slug}`;
   return (
-    <div className="container py-8">
+    <div className="container py-4">
       <Breadcrumb />
-      <div className="grid grid-cols-12 gap-8">
-        <div className="col-span-3">
+      <div className="grid md:grid-cols-12 grid-cols-1 gap-8">
+        <div className="md:col-span-4 col-span-1">
           <ProductImageCarousel
             productImages={product.productImages}
             thumbnail={product.imageUrl}
           />
         </div>
-        <div className="col-span-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-medium mb-2">{product.title}</h2>
+        <div className="md:col-span-5 col-span-1">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-3xl font-medium">{product.title}</h2>
             <ProductShareButton urlToShare={urlToShare} />
           </div>
           <div className="border-b border-gray-500">
             <p className="py-2">{product.description}</p>
-            <div className="flex items-center gap-8 mb-4">
-              <p>SKU: {product.sku}</p>
-              <p className="bg-lime-100 py-1.5 px-4 rounded-full text-slate-900">
-                <b>Stock: </b>
-                {product.productStock}
-              </p>
-            </div>
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <p>SKU: {product.sku}</p>
+            <p className="bg-primary text-white py-1.5 px-4 rounded">
+              <b>Stock: </b>
+              {product.productStock}
+            </p>
           </div>
           <div class="flex items-center mt-4">
             <div class="flex gap-1 text-sm text-yellow-400">
@@ -91,12 +93,12 @@ export default async function ProductDetailPage({ params: { slug } }) {
             <AddToCartButton product={product} />
           </div>
         </div>
-        <div className="col-span-3 sm:block hidden bg-white border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-700 text-slate-800 overflow-hidden">
-          <h2 className="bg-slate-100 dark:bg-gray-800 py-3 px-6 font-semibold border-b border-gray-300 dark:border-gray-600 text-slate-800 dark:text-slate-100">
+        <div className="md:col-span-3 col-span-1 sm:block hidden bg-white border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-700 text-slate-800 overflow-hidden">
+          <h2 className="bg-primary text-white py-3 px-6 font-semibold">
             Delivery & Returns
           </h2>
           <div className="p-4">
-            <div className="flex rounded-lg py-2 px-4 bg-orange-400 text-slate-50 items-center gap-3">
+            <div className="flex rounded-lg py-2 px-4 bg-primary text-white items-center gap-3">
               <span>PrintSix Express</span>
               <Send />
             </div>

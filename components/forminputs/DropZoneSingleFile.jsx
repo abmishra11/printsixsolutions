@@ -136,9 +136,7 @@ export default function DropZoneSingleFiles({
         <div className="flex flex-col" key={file.name}>
           <div className="flex items-start justify-between">
             <div>
-              <p className="mt-2 text-neutral-500 text-sm font-medium">
-                {file.name}
-              </p>
+              <p className="mt-2 text-neutral-500 font-medium">{file.name}</p>
               <ul className="text-[12px] text-red-400">
                 {errors.map((error) => (
                   <li key={error.code}>{error.message}</li>

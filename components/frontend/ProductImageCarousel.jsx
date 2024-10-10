@@ -11,16 +11,17 @@ export default function ProductImageCarousel({
   productImages = [],
   thumbnail,
 }) {
-  const swiperImages = [
-    "https://swiperjs.com/demos/images/nature-1.jpg",
-    "https://swiperjs.com/demos/images/nature-2.jpg",
-    "https://swiperjs.com/demos/images/nature-3.jpg",
-    "https://swiperjs.com/demos/images/nature-4.jpg",
-    "https://swiperjs.com/demos/images/nature-5.jpg",
-    "https://swiperjs.com/demos/images/nature-6.jpg",
-    "https://swiperjs.com/demos/images/nature-7.jpg",
-    "https://swiperjs.com/demos/images/nature-8.jpg",
-  ];
+  // const swiperImages = [
+  //   "https://swiperjs.com/demos/images/nature-1.jpg",
+  //   "https://swiperjs.com/demos/images/nature-2.jpg",
+  //   "https://swiperjs.com/demos/images/nature-3.jpg",
+  //   "https://swiperjs.com/demos/images/nature-4.jpg",
+  //   "https://swiperjs.com/demos/images/nature-5.jpg",
+  //   "https://swiperjs.com/demos/images/nature-6.jpg",
+  //   "https://swiperjs.com/demos/images/nature-7.jpg",
+  //   "https://swiperjs.com/demos/images/nature-8.jpg",
+  // ];
+  const swiperImages = productImages.length > 1 ? productImages : [];
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <div>
@@ -61,7 +62,7 @@ export default function ProductImageCarousel({
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="mySwiper"
+            className="mySwiper mt-4"
           >
             {swiperImages.map((image, i) => {
               return (

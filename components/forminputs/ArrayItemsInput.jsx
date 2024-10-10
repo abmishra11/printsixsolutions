@@ -30,7 +30,7 @@ export default function ArrayItemsInput({ setItems, items, itemTitle }) {
             <input
               type="text"
               id="voice-search"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-lime-500 focus:border-lime-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
               placeholder={`Create a ${itemTitle}...`}
               required
               value={item}
@@ -41,7 +41,7 @@ export default function ArrayItemsInput({ setItems, items, itemTitle }) {
               <button
                 onClick={addItem}
                 type="button"
-                className="shrink-0 inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-lime-700 rounded-lg border border-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
+                className="shrink-0 inline-flex items-center py-2.5 px-3 ms-2 font-medium text-white bg-lime-700 rounded-lg border border-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
               >
                 <Plus className="w-4 h-4 me-2" />
                 Add

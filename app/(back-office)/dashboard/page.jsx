@@ -15,10 +15,8 @@ export default async function page() {
   const session = await getServerSession(authOptions);
   const role = session?.user?.role;
   const sales = await getData("sales");
-  console.log("sales", sales);
 
   const orders = await getData("orders");
-  console.log("orders", orders);
 
   const products = await getData("products");
 

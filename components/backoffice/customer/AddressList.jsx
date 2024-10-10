@@ -130,7 +130,10 @@ export default function AddressList({ addressesArr }) {
           <h2 className="mb-4">Addresses</h2>
         </div>
         <div>
-          <Link href={"/dashboard/customer/addresses/new"}>
+          <Link
+            href={"/dashboard/customer/addresses/new"}
+            className="bg-primary text-white py-2 px-4 rounded"
+          >
             Add New Address
           </Link>
         </div>
