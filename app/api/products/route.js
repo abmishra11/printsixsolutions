@@ -164,6 +164,9 @@ export async function GET(request){
                             title: {contains: search, mode: 'insensitive'}
                         }
                     ]
+                },
+                include: {
+                    reviews: true
                 }
             })
         }else if(categoryId && page){
@@ -174,6 +177,9 @@ export async function GET(request){
                 orderBy: {
                     createdAt: "desc"
                 },
+                include: {
+                    reviews: true
+                }
             })
         }else if(categoryId && sortBy){
             products = await db.product.findMany({
@@ -181,18 +187,27 @@ export async function GET(request){
                 orderBy: {
                     salePrice: sortBy === "asc" ? "asc" : "desc"
                 },
+                include: {
+                    reviews: true
+                }
             })
         }else if(categoryId){
             products = await db.product.findMany({
                 orderBy: {
                     createdAt: "desc"
                 },
-                where
+                where,
+                include: {
+                    reviews: true
+                }
             })
         }else{
             products = await db.product.findMany({
                 orderBy: {
                     createdAt: "desc"
+                },
+                include: {
+                    reviews: true
                 }
             })
         }

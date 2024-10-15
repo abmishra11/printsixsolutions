@@ -1,47 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import ProductReview from "./ProductReview";
 import toast from "react-hot-toast";
+import AllReviews from "./AllReviews";
+import Review from "./Review";
 
 export default function ProductReviewForm({
   product,
   productReviews = [],
   userId = null,
+  userData = null,
 }) {
-  let userReviewed = false;
-  if (userId) {
-    productReviews.forEach((review) => {
-      if (review.userId === userId) {
-        userReviewed = true;
-      }
-    });
-  }
-
-  const customerReview = productReviews.filter(
-    (review) => review.userId !== userId
-  );
-
-  const userReview = productReviews.filter(
-    (review) => review.userId === userId
-  );
-
-  const [reviews, setReviews] = useState(customerReview);
-
-  const [usersReview, setUsersReview] = useState(userReview);
-
+  const [reviews, setReviews] = useState(productReviews);
+  const [userReviewed, setUserReviewed] = useState(false);
+  const [usersReview, setUsersReview] = useState([]);
   const [formInput, setFormInput] = useState({
     rating: 0,
     comment: "",
   });
+  const [loading, setLoading] = useState(false);
+
+  // Determine if the user has reviewed the product
+  useEffect(() => {
+    if (userId) {
+      const userReview = productReviews.find(
+        (review) => review.userId === userId
+      );
+      if (userReview) {
+        setUserReviewed(true);
+        setUsersReview([userReview]); // Set the user's review in the state
+      }
+    }
+  }, [userId, productReviews]);
 
   // Function to handle star rating click
   const handleRatingClick = (rating) => {
-    setFormInput({ ...formInput, rating });
+    setFormInput((prevState) => ({
+      ...prevState,
+      rating,
+    }));
   };
-
-  const [loading, setLoading] = useState(false);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -54,11 +52,18 @@ export default function ProductReviewForm({
 
     setLoading(true);
 
+    // const newReview = {
+    //   rating: formInput.rating,
+    //   comment: formInput.comment,
+    //   productId: product.id,
+    //   userId,
+    // };
+
     const newReview = {
       rating: formInput.rating,
       comment: formInput.comment,
       productId: product.id,
-      userId,
+      userId: userId,
     };
 
     try {
@@ -75,84 +80,37 @@ export default function ProductReviewForm({
 
       if (response.ok) {
         toast.success("You have successfully added the review");
-        setUsersReview([newReview]); // Update user's review state
+        setUserReviewed(true); // Set the userReviewed flag to true
+        newReview.user = {
+          name: userData.name,
+          email: userData.email,
+          profile: userData?.profile,
+        };
+        newReview.createdAt = new Date().toISOString();
+        newReview.updatedAt = new Date().toISOString();
+        setUsersReview([newReview]);
         setReviews((prevReviews) => [...prevReviews, newReview]);
-        userReviewed = true;
       } else {
         if (response.status === 409) {
           toast.error(responseData.message);
         } else {
-          toast.error("Something went wrong");
+          toast.error("Something went wrong while adding the review.");
         }
       }
     } catch (error) {
       console.log(error);
-      toast.error("An error occurred");
+      toast.error("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
     }
 
+    // Reset form inputs after submission
     setFormInput({ rating: 0, comment: "" });
   };
 
   return (
     <div className="bg-slate-700 md:py-16 my-8 rounded-xl">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 mb-4">
-        {/* Review summary */}
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl text-primary mr-2 font-bold">
-            Over All Rating
-          </h2>
-          <ProductReview
-            stars={
-              reviews.reduce((acc, review) => acc + review.rating, 0) /
-                reviews.length || 0
-            }
-            reviews={reviews.length}
-          />
-        </div>
-      </div>
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl text-primary mr-2 font-bold">
-            Customer's Reviews
-          </h2>
-          {/* <Link
-            href={"#reviewForm"}
-            className="bg-primary text-white py-2 px-4 rounded-lg"
-          >
-            Add Review
-          </Link> */}
-        </div>
-        {/* Display all reviews */}
-        {reviews.map((review) => (
-          <div key={review.id} className="mt-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-start">
-                <Image
-                  className="mr-4 rounded-lg"
-                  src={"/photo.jpg"} // You can dynamically link different images if needed
-                  height={50}
-                  width={50}
-                  alt="User"
-                />
-                <div>
-                  <p className="text-primary mb-2">{review.userName}</p>
-                  <ProductReview stars={review.rating} reviews={10} />
-                </div>
-              </div>
-              <div>
-                <p className="text-primary">{review.createdAt}</p>
-              </div>
-            </div>
-            <div className="mt-4">
-              <p className="text-gray-800">{review.comment}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Review Form */}
+      <AllReviews reviews={reviews} />
       {userId && !userReviewed ? (
         <form
           id="reviewForm"
@@ -196,19 +154,13 @@ export default function ProductReviewForm({
               }
             ></textarea>
           </div>
-          <input
-            type="hidden"
-            id="productId"
-            name="productId"
-            value="PRODUCT_ID"
-          />
-          <input type="hidden" id="userId" name="userId" value="USER_ID" />
           <div className="text-right">
             <button
               type="submit"
               className="bg-primary text-white hover:bg-white hover:text-primary font-semibold px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              disabled={loading}
             >
-              Submit Review
+              {loading ? "Submitting..." : "Submit Review"}
             </button>
           </div>
         </form>
@@ -216,38 +168,20 @@ export default function ProductReviewForm({
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-4">
           {userId ? (
             <div>
+              <div className="text-center">
+                <h2 className="text-2xl text-primary font-bold mb-4">
+                  Your Review
+                </h2>
+              </div>
               {usersReview.length > 0 ? (
                 usersReview.map((review) => (
                   <div key={review.id}>
-                    <h2 className="text-2xl text-primary font-bold">
-                      Your Review
-                    </h2>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-start">
-                        <Image
-                          className="mr-4 rounded-lg"
-                          src={"/photo.jpg"} // dynamic image logic can go here
-                          height={50}
-                          width={50}
-                          alt="User"
-                        />
-                        <div>
-                          <p className="text-primary mb-2">{review.userName}</p>
-                          <ProductReview stars={review.rating} reviews={1} />
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-primary">{review.createdAt}</p>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-gray-800">{review.comment}</p>
-                    </div>
+                    <Review review={review} />
                   </div>
                 ))
               ) : (
                 <Link
-                  href={"/login"}
+                  href="/login"
                   className="bg-primary text-white py-2 px-4 rounded-lg"
                 >
                   Login to add review
@@ -256,7 +190,7 @@ export default function ProductReviewForm({
             </div>
           ) : (
             <Link
-              href={"/login"}
+              href="/login"
               className="bg-primary text-white py-2 px-4 rounded-lg"
             >
               Login to add review
@@ -274,7 +208,7 @@ const Star = ({ filled, onClick }) => (
     onClick={onClick}
     xmlns="http://www.w3.org/2000/svg"
     className={`w-6 h-6 mr-2 cursor-pointer ${
-      filled ? "text-primary" : "text-primary"
+      filled ? "text-primary" : "text-gray-400"
     }`}
     fill={filled ? "currentColor" : "none"}
     viewBox="0 0 24 24"

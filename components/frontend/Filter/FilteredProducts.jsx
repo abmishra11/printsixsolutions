@@ -13,7 +13,9 @@ export default async function FilteredProducts({
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product, i) => {
-          return <Product product={product} key={i} />;
+          return (
+            <Product product={product} key={i} reviews={product.reviews} />
+          );
         })}
       </div>
       <div className="p-8 mx-auto flex items-center justify-center">

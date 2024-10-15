@@ -36,6 +36,9 @@ export default async function ProductDetailPage({ params: { slug } }) {
   const user = session?.user;
   const userId = user?.id;
 
+  const userData = userId ? await getData(`users/${userId}`) : null;
+  console.log("userData:", userData);
+
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${slug}`;
   return (
@@ -151,6 +154,7 @@ export default async function ProductDetailPage({ params: { slug } }) {
         product={product}
         productReviews={productReviews ? productReviews : []}
         userId={userId}
+        userData={userData}
       />
     </div>
   );
