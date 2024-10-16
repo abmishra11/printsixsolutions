@@ -2,7 +2,6 @@ import CustomDataTable from "@/components/backoffice/CustomDataTable";
 import DashboardCharts from "@/components/backoffice/DashboardCharts";
 import Heading from "@/components/backoffice/Heading";
 import LargeCards from "@/components/backoffice/LargeCards";
-import SmallCard from "@/components/backoffice/SmallCard";
 import SmallCards from "@/components/backoffice/SmallCards";
 import UserDashboard from "@/components/backoffice/UserDashboard";
 import VendorDashboard from "@/components/backoffice/VendorDashboard";
@@ -38,7 +37,11 @@ export default async function page() {
       {/* Charts */}
       <DashboardCharts sales={sales} orders={orders} />
       {/* Recent Orders Table */}
-      <CustomDataTable data={orders} />
+
+      <div className="hidden md:block">
+        <h2 className="text-xl font-bold text-slate-50 py-4">Recent Orders</h2>
+        <CustomDataTable data={orders} />
+      </div>
     </div>
   );
 }

@@ -31,7 +31,7 @@ export default async function page() {
       />
 
       {/* Table */}
-      <div className="py-8">
+      <div className="">
         <DataTable data={updatedCategories} columns={columns} />
       </div>
     </div>

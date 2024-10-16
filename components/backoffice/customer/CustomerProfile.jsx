@@ -21,7 +21,10 @@ export default function CustomerProfile({ userProfile }) {
                   width={200}
                   height={200}
                 />
-                <Link href={"/dashboard/customer/profile"} className="mt-4">
+                <Link
+                  href={"/dashboard/customer/profile"}
+                  className="py-2 px-4 bg-primary text-white rounded-md mt-4"
+                >
                   Update Profile Info
                 </Link>
               </div>

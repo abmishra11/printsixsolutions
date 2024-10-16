@@ -132,7 +132,7 @@ export default function AddressList({ addressesArr }) {
         <div>
           <Link
             href={"/dashboard/customer/addresses/new"}
-            className="bg-primary text-white py-2 px-4 rounded"
+            className="bg-lime-500 text-white py-2 px-4 rounded"
           >
             Add New Address
           </Link>

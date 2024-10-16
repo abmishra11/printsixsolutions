@@ -95,7 +95,7 @@ export default function OrderCard({ order }) {
             <div className="flex items-center mt-8 space-x-5">
               <Link
                 href={`/dashboard/orders/${order.id}/invoice`}
-                className="inline-flex items-center justify-center px-4 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-100"
+                className="inline-flex items-center justify-center px-4 py-2.5 text-white transition-all duration-200 bg-lime-500 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
               >
                 View Invoice
               </Link>
