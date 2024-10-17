@@ -7,7 +7,6 @@ import { columns } from "./columns";
 
 export default async function page() {
   const customers = await getData("customers");
-  console.log("Customers Data", customers);
 
   return (
     <div className="relative min-h-screen">
