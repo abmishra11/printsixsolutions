@@ -1,5 +1,4 @@
 import React from "react";
-import PageHeader from "@/components/backoffice/PageHeader";
 import DataTable from "@/components/datatable/DataTable";
 import { getData } from "@/lib/getData";
 import { columns } from "./columns";
@@ -14,7 +13,7 @@ export default async function page() {
 
   const vendorSales = allSales.filter((sale) => sale.vendorId === id);
   return (
-    <div>
+    <div className="relative min-h-screen">
       {/* Header */}
       {/* <PageHeader
         heading={"Coupons"}
@@ -22,21 +21,20 @@ export default async function page() {
         href={"/dashboard/coupons/new"}
       /> */}
       {/* Table */}
-      <div className="py-8">
-        {role === "ADMIN" ? (
-          <DataTable
-            data={allSales}
-            columns={columns}
-            filterKeys={["productTitle"]}
-          />
-        ) : (
-          <DataTable
-            data={vendorSales}
-            columns={columns}
-            filterKeys={["title", "couponCode"]}
-          />
-        )}
-      </div>
+      <h2 className="text-2xl font-semibold text-slate-50 mb-4">Sales</h2>
+      {role === "ADMIN" ? (
+        <DataTable
+          data={allSales}
+          columns={columns}
+          filterKeys={["productTitle"]}
+        />
+      ) : (
+        <DataTable
+          data={vendorSales}
+          columns={columns}
+          filterKeys={["title", "couponCode"]}
+        />
+      )}
     </div>
   );
 }

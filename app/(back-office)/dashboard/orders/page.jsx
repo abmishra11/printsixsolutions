@@ -15,7 +15,8 @@ export default async function Page() {
   }
 
   return (
-    <div className="py-8">
+    <div className="relative min-h-screen">
+      <h2 className="text-2xl font-semibold text-slate-50 mb-4">Orders</h2>
       <DataTable
         data={orders}
         columns={columns}

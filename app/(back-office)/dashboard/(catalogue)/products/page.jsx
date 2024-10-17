@@ -20,7 +20,7 @@ export default async function page() {
   );
 
   return (
-    <div>
+    <div className="relative min-h-screen">
       {/* Header */}
       <PageHeader
         heading={"Products"}
@@ -28,13 +28,11 @@ export default async function page() {
         href={"/dashboard/products/new"}
       />
       {/* Table */}
-      <div className="py-8">
-        {role === "ADMIN" ? (
-          <DataTable data={allProducts} columns={columns} />
-        ) : (
-          <DataTable data={vendorProducts} columns={columns} />
-        )}
-      </div>
+      {role === "ADMIN" ? (
+        <DataTable data={allProducts} columns={columns} />
+      ) : (
+        <DataTable data={vendorProducts} columns={columns} />
+      )}
     </div>
   );
 }

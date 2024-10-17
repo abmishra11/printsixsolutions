@@ -22,7 +22,7 @@ export default async function page() {
   });
 
   return (
-    <div>
+    <div className="relative min-h-screen">
       {/* Header */}
       <PageHeader
         heading={"Categories"}
@@ -31,9 +31,7 @@ export default async function page() {
       />
 
       {/* Table */}
-      <div className="">
-        <DataTable data={updatedCategories} columns={columns} />
-      </div>
+      <DataTable data={updatedCategories} columns={columns} />
     </div>
   );
 }

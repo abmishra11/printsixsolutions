@@ -10,7 +10,7 @@ export default async function page() {
   console.log("vendors", vendors);
 
   return (
-    <div>
+    <div className="relative min-h-screen">
       {/* Header */}
       <PageHeader
         heading={"Vendors"}
@@ -18,13 +18,11 @@ export default async function page() {
         href={"/dashboard/vendors/new"}
       />
       {/* Table */}
-      <div className="py-8">
-        <DataTable
-          data={vendors}
-          columns={columns}
-          filterKeys={["name", "email"]}
-        />
-      </div>
+      <DataTable
+        data={vendors}
+        columns={columns}
+        filterKeys={["name", "email"]}
+      />
     </div>
   );
 }
