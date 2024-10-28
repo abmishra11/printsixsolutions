@@ -54,6 +54,7 @@
     "react-redux": "^9.1.2",
     "react-share": "^5.1.0",
     "react-share-social": "^0.1.60",
+    "react-spinners": "^0.14.1",
     "react-to-print": "^2.15.1",
     "redux": "^5.0.1",
     "sass": "^1.77.0",

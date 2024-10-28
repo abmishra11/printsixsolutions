@@ -19,29 +19,28 @@ import CartCount from "./CartCount";
 import { useSession } from "next-auth/react";
 import UserAvatar from "../backoffice/UserAvatar";
 export default function Navbar({ categories }) {
-
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { data: session, status } = useSession();
 
-  useEffect(()=>{
-    if (status === "loading") {
-     showLoader(true);
-    }
-    ()=>{
-      showLoader(false);
-    }
-  },[status])
+  // useEffect(()=>{
+  //   if (status === "loading") {
+  //    showLoader(true);
+  //   }
+  //   ()=>{
+  //     showLoader(false);
+  //   }
+  // },[status])
 
-  const showLoader = (show)=>{
-    if(show){
-      return <p>Loading...</p>;
-    }else{
-      return null;
-    }
-    
-  }
+  // const showLoader = (show)=>{
+  //   if(show){
+  //     return <p>Loading...</p>;
+  //   }else{
+  //     return null;
+  //   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  // }
+
+  // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   const toggleSearch = () => {
     setIsSearchVisible((prevState) => !prevState);
@@ -57,19 +56,17 @@ export default function Navbar({ categories }) {
 
   return (
     <div>
-      <div className="p-4 bg-gray-800"></div> 
+      <div className="p-4 bg-gray-800"></div>
       <header className="shadow-sm bg-white">
-      <Link className=" py-2 flex justify-center items-center mb-3 md:hidden" href="/">
-            <Image
-              src={logo}
-              alt="PrintSix logo"
-              width={150}
-              className="mr-2"
-            />
-          </Link>
-        <div className="container flex items-center justify-center">
+        <Link
+          className=" py-2 flex justify-center items-center mb-3 md:hidden"
+          href="/"
+        >
+          <Image src={logo} alt="PrintSix logo" width={150} className="mr-2" />
+        </Link>
+        <div className="container flex items-center justify-center gap-12">
           {/* Logo */}
-          <Link className=" py-2 hidden md:block" href="/">
+          <Link className="py-2 hidden md:block" href="/">
             <Image
               src={logo}
               alt="PrintSix logo"
@@ -83,8 +80,7 @@ export default function Navbar({ categories }) {
           </div>
 
           {/* 3 ICONS */}
-          <div className="flex items-center justify-center space-x-4">
-            
+          <div className="flex items-center justify-center space-x-4 md:mb-0 mb-4">
             <HelpModal />
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -118,7 +114,6 @@ export default function Navbar({ categories }) {
       </header>
       <nav className="bg-gray-800">
         <div className="container md:{block}">
-          
           {/* Hamburger Icon for Mobile */}
           <div
             className="px-8 py-4 cursor-pointer flex items-center justify-center md:hidden"

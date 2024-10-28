@@ -7,11 +7,11 @@ export default function ShopByCategory({ categories }) {
       <h2 className="text-2xl font-medium text-primary uppercase mb-6">
         Shop By Category
       </h2>
-      <div class="p-1 flex flex-wrap items-center justify-center">
+      <div class="grid lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-1">
         {categories.map((category) => {
           return (
             <div
-              class="flex-shrink-0 m-6 relative overflow-hidden bg-primary rounded-lg max-w-xs shadow-lg group"
+              class="flex-shrink-0 mb-8 relative overflow-hidden bg-primary rounded-lg max-w-xs shadow-lg group"
               key={category?.id}
             >
               <div class="relative pt-10 px-10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -37,9 +37,7 @@ export default function ShopByCategory({ categories }) {
                     href={`/category/${category.slug}`}
                     className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white font-roboto group-hover:bg-opacity-50 transition font-semibold text-xl"
                   >
-                   
-                      {category.title}
-                    
+                    {category.title}
                   </a>
                 </div>
               </div>
