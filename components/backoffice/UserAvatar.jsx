@@ -16,7 +16,11 @@ import { useHandleLogout } from "@/lib/handleLogout"; // Import the hook
 
 export default function UserAvatar({ user = {} }) {
   const { name, image, role } = user;
-  const initials = generateinitials(name);
+  let initials;
+  if(name){
+    initials = generateinitials(name);
+  }
+  
   const handleLogout = useHandleLogout(); // Use the hook
 
   return (

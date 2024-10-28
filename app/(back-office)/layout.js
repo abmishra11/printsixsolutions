@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 export default function Layout({ children }) {
   const [showSideBar, setShowSideBar] = useState(false)
   return (
-    <div className='flex'>
+    <>
       {/* { Sidebar } */}
       <Sidebar showSideBar={showSideBar}/>
       {/* { The Main Body } */}
@@ -19,6 +19,6 @@ export default function Layout({ children }) {
           {children}
         </main>
       </div>
-    </div>
+    </>
   )
 }

@@ -8,7 +8,7 @@ export default function CustomerProfile({ userProfile }) {
 
   return (
     <div className="min-h-screen dark:bg-slate-900 flex flex-col">
-      <div className="container mx-auto">
+      <div className="">
         <div className="dark:bg-slate-800 dark:text-slate-50 rounded-lg shadow-lg overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Profile Image */}

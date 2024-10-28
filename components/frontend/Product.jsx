@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/slices/cartSlice";
 import toast from "react-hot-toast";
 import AddToCartButton from "./AddToCartButton";
+import ProductRating from "./ProductRating";
 
 export default function Product({ product }) {
   return (
@@ -40,7 +41,7 @@ export default function Product({ product }) {
       </div>
       <div className="pt-4 pb-3 px-4 space-y-4">
         <Link href={`/products/${product.slug}`}>
-          <h4 className="font-medium text-base mb-2 text-gray-800 hover:text-primary transition">
+          <h4 className="font-medium text-base mb-2 text-gray-800 hover:text-primary transition min-h-12">
             {product.title}
           </h4>
         </Link>
@@ -52,26 +53,7 @@ export default function Product({ product }) {
             ${product.productPrice}
           </p>
         </div>
-        <div className="flex items-center">
-          <div className="flex gap-1 text-sm text-yellow-400">
-            <span>
-              <Star />
-            </span>
-            <span>
-              <Star />
-            </span>
-            <span>
-              <Star />
-            </span>
-            <span>
-              <Star />
-            </span>
-            <span>
-              <Star />
-            </span>
-          </div>
-          <div className="text-xs text-gray-500 ml-3">(150)</div>
-        </div>
+        <ProductRating/>
         <AddToCartButton product={product} />
       </div>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ThemeSwitcherBtn from "../ThemeSwitcherBtn";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,14 +19,29 @@ import CartCount from "./CartCount";
 import { useSession } from "next-auth/react";
 import UserAvatar from "../backoffice/UserAvatar";
 export default function Navbar({ categories }) {
+
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { data: session, status } = useSession();
-  if (status === "loading") {
-    return <p>Loading...</p>;
+
+  useEffect(()=>{
+    if (status === "loading") {
+     showLoader(true);
+    }
+    ()=>{
+      showLoader(false);
+    }
+  },[status])
+
+  const showLoader = (show)=>{
+    if(show){
+      return <p>Loading...</p>;
+    }else{
+      return null;
+    }
+    
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const toggleSearch = () => {
     setIsSearchVisible((prevState) => !prevState);
@@ -42,11 +57,19 @@ export default function Navbar({ categories }) {
 
   return (
     <div>
-      <div className="p-4 bg-gray-800"></div>
-      <header className="py-4 shadow-sm bg-white">
-        <div className="container flex items-center justify-between">
+      <div className="p-4 bg-gray-800"></div> 
+      <header className="shadow-sm bg-white">
+      <Link className=" py-2 flex justify-center items-center mb-3 md:hidden" href="/">
+            <Image
+              src={logo}
+              alt="PrintSix logo"
+              width={150}
+              className="mr-2"
+            />
+          </Link>
+        <div className="container flex items-center justify-center">
           {/* Logo */}
-          <Link className="" href="/">
+          <Link className=" py-2 hidden md:block" href="/">
             <Image
               src={logo}
               alt="PrintSix logo"
@@ -60,7 +83,14 @@ export default function Navbar({ categories }) {
           </div>
 
           {/* 3 ICONS */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-center space-x-4">
+            
+            <HelpModal />
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <CartCount />
+              </DropdownMenuTrigger>
+            </DropdownMenu>
             {status === "unauthenticated" ? (
               <Link
                 href={"/login"}
@@ -72,12 +102,6 @@ export default function Navbar({ categories }) {
             ) : (
               <UserAvatar user={session?.user} />
             )}
-            <HelpModal />
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <CartCount />
-              </DropdownMenuTrigger>
-            </DropdownMenu>
             {/* <ThemeSwitcherBtn /> */}
             <button className="block md:hidden" onClick={toggleSearch}>
               <SearchIcon className="text-primary" />
@@ -93,10 +117,11 @@ export default function Navbar({ categories }) {
         </div>
       </header>
       <nav className="bg-gray-800">
-        <div className="container">
+        <div className="container md:{block}">
+          
           {/* Hamburger Icon for Mobile */}
           <div
-            className="px-8 py-4 cursor-pointer md:hidden"
+            className="px-8 py-4 cursor-pointer flex items-center justify-center md:hidden"
             onClick={toggleMenu}
           >
             <MenuIcon />
@@ -128,7 +153,7 @@ export default function Navbar({ categories }) {
             </div>
 
             {/* Menu Links */}
-            <div className="flex flex-col md:flex-row items-center justify-between pl-8 space-y-4 md:space-y-0 md:space-x-4">
+            <div className="flex flex-col md:flex-row items-center justify-between pl-8 space-y-4 md:space-y-0 md:space-x-4 header-menu">
               <Link
                 href="/"
                 className="text-gray-200 hover:text-white transition p-4"
