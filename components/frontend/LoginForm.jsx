@@ -111,7 +111,7 @@ export default function LoginForm() {
       )}
       <div>
         {/* Forgot Password Link */}
-        <Link href="#" className="text-primary hover:underline">
+        <Link href="/forget-password" className="text-primary hover:underline">
           Forgot Password?
         </Link>
       </div>

@@ -8,14 +8,15 @@ export async function PUT(request){
     try {
         // Extract the data from submitted form
         const { email } = await request.json()
-
+        console.log("email", email);
+        
         // Check if the user already exists in the db
         const existingUser = await db.user.findUnique({
             where: {
                 email,
             }
         })
-
+        console.log("existingUser", existingUser);
         if(!existingUser){
             return NextResponse.json(
                 {
@@ -28,39 +29,40 @@ export async function PUT(request){
             )
         }
 
-        /** Generate Token **/
+        // Generate Token
         // Generate a random UUID (Version 4)
         const rawToken = uuidv4()
-        console.log(rawToken);
+        console.log("rawToken", rawToken);
 
         // Encode the token using Base64 URL-Safe format
         const token = base64url.encode(rawToken)
 
-        // Update a user in the DB
-        // const updatedUser = await db.user.update({
-        //     where: {
-        //         email,
-        //     },
-        //     data: {
-        //         passwordResetToken: token
-        //     }
-        // })
+        const tokenExpiry = new Date(Date.now() + 5 * 60 * 1000);
+        // update a user in the DB
+        const updatedUser = await db.user.update({
+            where: {
+                email,
+            },
+            data: {
+                passwordResetToken: token,
+                passwordResetExpires: tokenExpiry
+            }
+        })
 
-        // Send an Email with the token on the link as a search param
-        const linkText = "Reset Password"
-        const userId = existingUser.id
-        const name = existingUser.name
-        const redirectUrl = `reset-password?token=${token}&id=${userId}`
-        const description = "Click on the following link in order to reset your password. Thank you"
-        const subject = "Password Reset"
-        console.log(userId, name, redirectUrl, description, subject);
+        console.log("updatedUser", updatedUser);
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+        const redirectUrl = `${baseUrl}/reset-password?token=${token}&id=${existingUser?.id}`
+        // const description = "Click on the following link in order to reset your password. Thank you"
 
         /* Send the Email */
         // Write send email login here
         console.log(token);
         return NextResponse.json(
             {
-                data: null,
+                data: {
+                    email:  existingUser?.email,
+                    redirectUrl: redirectUrl
+                },
                 message: "User Updated Successfully"
             },
             {
