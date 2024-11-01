@@ -2,27 +2,32 @@ import { NextResponse } from "next/server";
 import db from "@/lib/db";
 import bcrypt from "bcrypt";
 
+// Helper function to validate password strength and confirmation
+function validatePassword(password, confirmpassword) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordPattern.test(password)) {
+        return { message: "Password must include uppercase, lowercase, number, and special character", status: 422 };
+    }
+    if (password !== confirmpassword) {
+        return { message: "Password and confirm password do not match", status: 422 };
+    }
+    return null;
+}
+
 export async function PUT(request) {
     try {
-        // Extract the data from the request body
         const { password, confirmpassword, token, id } = await request.json();
 
-        if (password !== confirmpassword) {
-            return NextResponse.json(
-                { data: null, message: "Passwords do not match." },
-                { status: 400 }
-            );
+        // Password validation
+        const passwordError = validatePassword(password, confirmpassword);
+        if (passwordError) {
+            return NextResponse.json({ data: null, message: passwordError.message }, { status: passwordError.status });
         }
 
-        // Fetch the user based on ID, token, and role
+        // Check if user exists and token is valid
         const user = await db.user.findUnique({
-            where: {
-                id,
-                passwordResetToken: token,
-                role: "USER"
-            }
+            where: { id, passwordResetToken: token, role: "USER" }
         });
-
         if (!user) {
             return NextResponse.json(
                 { data: null, message: "User not found or token invalid." },
@@ -30,19 +35,17 @@ export async function PUT(request) {
             );
         }
 
-        // Check if the token has expired
+        // Check token expiration
         const tokenExpiryDate = new Date(user.passwordResetExpires);
         if (tokenExpiryDate < new Date()) {
             return NextResponse.json(
                 { data: null, message: "Token has expired." },
-                { status: 400 }
+                { status: 410 }  // 410 Gone for expired token
             );
         }
 
-        // Encrypt the password using bcrypt
+        // Encrypt and update password
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Update the user's password and remove the token fields
         const updatedUser = await db.user.update({
             where: { id },
             data: {
@@ -50,7 +53,7 @@ export async function PUT(request) {
                 passwordResetToken: null,
                 passwordResetExpires: null
             },
-            select: { id: true, email: true }  // Ensure only non-sensitive fields are returned
+            select: { id: true, email: true }
         });
 
         return NextResponse.json(
@@ -61,7 +64,7 @@ export async function PUT(request) {
     } catch (error) {
         console.error("Error updating password:", error);
         return NextResponse.json(
-            { error: error.message || "Internal Server Error", message: "Failed to update user" },
+            { message: "Internal Server Error", error: error.message || "Unexpected error" },
             { status: 500 }
         );
     }

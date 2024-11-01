@@ -8,7 +8,6 @@ export async function PUT(request){
     try {
         // Extract the data from submitted form
         const { email } = await request.json()
-        console.log("email", email);
         
         // Check if the user already exists in the db
         const existingUser = await db.user.findUnique({
@@ -16,7 +15,7 @@ export async function PUT(request){
                 email,
             }
         })
-        console.log("existingUser", existingUser);
+
         if(!existingUser){
             return NextResponse.json(
                 {
@@ -32,7 +31,6 @@ export async function PUT(request){
         // Generate Token
         // Generate a random UUID (Version 4)
         const rawToken = uuidv4()
-        console.log("rawToken", rawToken);
 
         // Encode the token using Base64 URL-Safe format
         const token = base64url.encode(rawToken)
@@ -49,7 +47,6 @@ export async function PUT(request){
             }
         })
 
-        console.log("updatedUser", updatedUser);
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
         const redirectUrl = `${baseUrl}/reset-password?token=${token}&id=${existingUser?.id}`
         // const description = "Click on the following link in order to reset your password. Thank you"

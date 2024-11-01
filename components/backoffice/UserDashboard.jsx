@@ -4,9 +4,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { getData } from "@/lib/getData";
 
-export default async function UserDashboard() {
-  const session = await getServerSession(authOptions);
-  const { user } = session;
+export default async function UserDashboard({ user }) {
   const userProfile = await getData(`userprofile/${user.id}`);
+  console.log("userProfile: ", userProfile);
+
   return <CustomerProfile userProfile={userProfile} />;
 }

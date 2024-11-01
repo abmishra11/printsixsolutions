@@ -4,6 +4,15 @@ import bcrypt from "bcrypt"
 import { v4 as uuidv4 } from "uuid"
 import base64url from "base64url"
 
+function validatePassword(password) {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordPattern.test(password)) {
+        return { message: "Password must include uppercase, lowercase, number, and special character", status: 422 };
+    }
+
+    return null;
+}
+
 export async function POST(request){
     try {
         const {name, email, password, role, plan} = await request.json()
@@ -24,6 +33,12 @@ export async function POST(request){
                     status: 409
                 }
             )
+        }
+
+        // Password validation
+        const passwordError = validatePassword(password);
+        if (passwordError) {
+            return NextResponse.json({ data: null, message: passwordError.message }, { status: passwordError.status });
         }
 
         // Encrypt the password => bcrypt

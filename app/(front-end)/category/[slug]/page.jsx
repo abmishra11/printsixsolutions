@@ -4,15 +4,22 @@ import React from "react";
 
 export default async function page({ params: { slug }, searchParams }) {
   const { sort = "asc", min = 0, max = "", page = 1 } = searchParams;
-
   const category = await getData(`categories/filter/${slug}`);
+  console.log("category:", category);
+
   const products = await getData(
     `products?catId=${category.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );
+  console.log("products:", products);
 
+  const categories = await getData("categories");
   return (
     <div>
-      <FilterComponent category={category} products={products} />
+      <FilterComponent
+        category={category}
+        products={products}
+        categories={categories}
+      />
     </div>
   );
 }

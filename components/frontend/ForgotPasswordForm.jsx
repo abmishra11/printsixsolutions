@@ -47,9 +47,9 @@ export default function ForgotPasswordForm() {
         setLoading(false);
         setShowNotification(true);
         reset();
-        toast.success(
-          "Please Check your Email! We have sent you a Password Reset Link. Click on the Link in order to reset your Password"
-        );
+        // toast.success(
+        //   "Please Check your Email! We have sent you a Password Reset Link. Click on the Link in order to reset your Password"
+        // );
       } else {
         if (response.status === 404) {
           toast.error("User not found");
@@ -83,7 +83,7 @@ export default function ForgotPasswordForm() {
             <div>
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 font-medium text-gray-900 dark:text-white"
               >
                 Enter Your Email
               </label>
@@ -103,16 +103,14 @@ export default function ForgotPasswordForm() {
                 required=""
               />
               {errors.email && (
-                <small className="text-red-600 text-sm ">
-                  This field is required
-                </small>
+                <small className="text-red-600">This field is required</small>
               )}
             </div>
             {loading ? (
               <button
                 disabled
                 type="button"
-                className="w-full text-white bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center"
+                className="w-full text-white bg-primary font-medium rounded-lg px-5 py-2.5 text-center mr-2 inline-flex items-center"
               >
                 <svg
                   aria-hidden="true"
@@ -136,17 +134,17 @@ export default function ForgotPasswordForm() {
             ) : (
               <button
                 type="submit"
-                className="w-full text-white bg-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="w-full text-white bg-primary font-medium rounded-lg px-5 py-2.5 text-center"
               >
                 Send Password Reset Email
               </button>
             )}
             <div className="my-6">
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 ">
+              <p className="font-light text-white">
                 Do remember your Password?{" "}
                 <Link
                   href="/login"
-                  className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+                  className="font-medium text-primary hover:underline"
                 >
                   Login
                 </Link>

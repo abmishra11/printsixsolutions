@@ -6,10 +6,7 @@ export default function Login() {
     <section className="min-h-screen flex items-center justify-center">
       <div className="container py-16">
         <div className="max-w-lg mx-auto rounded-lg shadow-2xl p-10 bg-gray-800 border-gray-700 overflow-hidden">
-          <h2 className="text-2xl font-medium mb-1">Login</h2>
-          <p className="text-white mb-6 text-sm">
-            Login if you are a returning customer
-          </p>
+          <h2 className="text-2xl font-medium mb-4 text-center">Login</h2>
           <LoginForm />
           {/* <div className="flex justify-center relative mt-6">
             <div className="text-white uppercase px-3 bg-primary z-10 relative">
