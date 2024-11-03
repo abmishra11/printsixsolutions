@@ -12,9 +12,9 @@ export default async function Search({ searchParams }) {
   } = searchParams;
 
   const products = await getData(
-    `products?search=${search}$page=${page}&sort=${sort}&min=${min}&max=${max}`
+    `products?search=${search}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );
-
+ 
   const category = {
     title: search,
     slug: "",
@@ -22,9 +22,11 @@ export default async function Search({ searchParams }) {
     isSearch: true,
   };
 
+  const categories = await getData("categories");
+
   return (
     <div>
-      <FilterComponent category={category} products={products} />
+      <FilterComponent category={category} products={products}  categories={categories} />
     </div>
   );
 }

@@ -2,8 +2,9 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import SearchResultsCount from "./SearchResultsCount";
 
-export default function Sorting({ title, slug, isSearch }) {
+export default function Sorting({ title, slug, isSearch, productCount='' }) {
   const searchParams = useSearchParams();
   const sortParams = searchParams.get("sort");
   const sortingLinks = [
@@ -24,29 +25,39 @@ export default function Sorting({ title, slug, isSearch }) {
     },
   ];
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-medium text-primary hidden md:block">
-          {isSearch && "Search Result - " + title}
+      <div className="flex items-center justify-between w-full">
+        {/* Title Section on the Left */}
+        <h2 className="text-sm font-medium text-primary hidden md:block w-auto">
+          {isSearch && `Search Result - ${title}`}
+          {(!isSearch && productCount) && <SearchResultsCount resultCount={productCount} />}
         </h2>
-        <div className="flex items-center gap-1 md:text-sm text-xs">
-          {sortingLinks.map((link, i) => {
-            return (
-              <Link
-                key={i}
-                href={link.href}
-                className={`${
-                  link.sort == sortParams
-                    ? "bg-primary text-white border border-primary rounded-md p-2"
-                    : "bg-white text-primary border border-primary rounded-md p-2"
-                }`}
-              >
-                {link.title}
-              </Link>
-            );
-          })}
+
+        {/* Sorting Links Section on the Right */}
+        <div className="flex items-center gap-1 md:text-sm text-xs w-auto">
+          {sortingLinks && sortingLinks.length > 0 ? (
+            sortingLinks.map((link, i) => {
+              const isActive = link.sort === sortParams;
+              const linkStyles = isActive
+                ? "bg-primary text-white border border-primary rounded-md p-2 transition-colors duration-200"
+                : "bg-white text-primary border border-primary rounded-md p-2 transition-colors duration-200";
+
+              return (
+                <Link
+                  key={i}
+                  href={link.href}
+                  aria-label={`Sort by ${link.title}`}
+                  role="button"
+                  className={linkStyles}
+                >
+                  {link.title}
+                </Link>
+              );
+            })
+          ) : (
+            <p className="text-gray-500">No sorting options available</p>
+          )}
         </div>
       </div>
-    </div>
+
   );
 }

@@ -128,101 +128,52 @@ export async function POST(request){
     }
 }
 
-export async function GET(request){
+export async function GET(request) { 
     const categoryId = request.nextUrl.searchParams.get("catId");
     const sortBy = request.nextUrl.searchParams.get("sort");
     const min = request.nextUrl.searchParams.get("min");
     const max = request.nextUrl.searchParams.get("max");
-    const page = request.nextUrl.searchParams.get("page") || 1;
-    const search = request.nextUrl.searchParams.get("search"); 
+    const page = parseInt(request.nextUrl.searchParams.get("page")) || 1;
+    const search = request.nextUrl.searchParams.get("search");
     const pageSize = 10;
-    
-    let where = {
-        categoryId
-    }
-    if(min && max){
-        where.salePrice = {
-            gte: parseFloat(min),
-            lte: parseFloat(max)
-        }
-    }else if(min){
-        where.salePrice = {
-            gte: parseFloat(min),
-        }
-    }else if(max){
-        where.salePrice = {
-            lte: parseFloat(max)
-        }
-    }
-    let products;
-    try {
-        if(search){
-            products = await db.product.findMany({
-                where: {
-                    OR: [
-                        {
-                            title: {contains: search, mode: 'insensitive'}
-                        }
-                    ]
-                },
-                include: {
-                    reviews: true
-                }
-            })
-        }else if(categoryId && page){
-            products = await db.product.findMany({
-                where,
-                skip: (parseInt(page) - 1) * parseInt(pageSize),
-                take: parseInt(pageSize),
-                orderBy: {
-                    createdAt: "desc"
-                },
-                include: {
-                    reviews: true
-                }
-            })
-        }else if(categoryId && sortBy){
-            products = await db.product.findMany({
-                where,
-                orderBy: {
-                    salePrice: sortBy === "asc" ? "asc" : "desc"
-                },
-                include: {
-                    reviews: true
-                }
-            })
-        }else if(categoryId){
-            products = await db.product.findMany({
-                orderBy: {
-                    createdAt: "desc"
-                },
-                where,
-                include: {
-                    reviews: true
-                }
-            })
-        }else{
-            products = await db.product.findMany({
-                orderBy: {
-                    createdAt: "desc"
-                },
-                include: {
-                    reviews: true
-                }
-            })
-        }
 
-        return NextResponse.json(products)
-    } catch (error) {
-        console.log(error);
-        return NextResponse.json(
-            {
-                message: "Failed to fetch products",
-                error
-            },
-            {
-                status: 500
+    // Construct the `where` clause dynamically
+    let where = {
+        ...(categoryId && { categoryId }),
+        ...(min && { salePrice: { gte: parseFloat(min) } }),
+        ...(max && { salePrice: { ...where.salePrice, lte: parseFloat(max) } })
+    };
+
+    // Add search filtering if search term exists
+    if (search) {
+        where.OR = [
+            { title: { contains: search, mode: 'insensitive' } },
+        ];
+    }
+
+    // Determine sorting criteria based on `sortBy`
+    const orderBy = sortBy ? 
+        { salePrice: sortBy === "asc" ? "asc" : "desc" } : 
+        { createdAt: "desc" };
+    console.log("where: sfsdfsdfs");
+    
+    try {
+        const products = await db.product.findMany({
+            where,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            orderBy,
+            include: {
+                reviews: true
             }
-        )
+        });
+
+        return NextResponse.json(products);
+    } catch (error) {
+        console.error("Error fetching products:", error);
+        return NextResponse.json(
+            { message: "Failed to fetch products", error },
+            { status: 500 }
+        );
     }
 }

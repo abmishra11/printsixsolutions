@@ -9,8 +9,8 @@ export default function SearchResultsCount({ resultCount }) {
   const startRange = (currentPage - 1) * pageSize + 1;
   const endRange = Math.min(currentPage * pageSize, resultCount);
   return (
-    <div>
-      <p>
+    <div  className="ml-2">
+      <p className="text-sm">
         Showing {startRange}-{endRange} of {resultCount} results
       </p>
     </div>

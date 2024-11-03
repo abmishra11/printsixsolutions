@@ -7,6 +7,30 @@ export async function GET(request, {params: { id }}){
             where: {
                 id,
             },
+            include: {
+                user: {
+                    select: {
+                        name: true, 
+                        email: true,  
+                        profile: {   
+                            select: {
+                                phone: true,             
+                                profileImageUrl: true,   
+                                dateOfBirth: true,       
+                            }
+                        }
+                    }
+                },
+                product: {
+                    select: {
+                        id: true,
+                        title: true,
+                        productPrice: true,
+                        salePrice: true,
+                        imageUrl: true,
+                    },
+                },
+            }
         })
 
         return NextResponse.json(review)

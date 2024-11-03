@@ -18,7 +18,7 @@ export default async function page() {
         <Sorting title={"Shop"} isSearch={false} slug={""} />
       </div>
       <div className="grid grid-cols-4 gap-6 pb-16 items-start">
-        <div className="md:col-span-1 col-span-4 sticky top-1 left-0">
+        <div className="md:col-span-1 col-span-4 md:sticky md:top-1 md:left-0">
           <Filters slug={slug} categories={categories} />
         </div>
         <div className="md:col-span-3 col-span-4">

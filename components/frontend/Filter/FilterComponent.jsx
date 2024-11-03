@@ -3,7 +3,6 @@ import Sorting from "./Sorting";
 import Filters from "./Filters";
 import FilteredProducts from "./FilteredProducts";
 import FilterBreadcrumb from "./FilterBreadcrumb";
-import SearchResultsCount from "./SearchResultsCount";
 
 export default function FilterComponent({ category, products, categories }) {
   const { title, slug } = category;
@@ -11,16 +10,19 @@ export default function FilterComponent({ category, products, categories }) {
 
   return (
     <div className="container">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between py-4 space-y-6 md:space-y-0">
-        <FilterBreadcrumb title={title} resultCount={productCount} />
-        <SearchResultsCount resultCount={productCount} />
-        <Sorting title={title} isSearch={category?.isSearch} slug={slug} />
+      <div className="grid md:grid-cols-4 grid-cols-1 py-4 space-y-6 md:space-y-0">
+        <div className="md:col-span-1 col-span-1 flex items-center">
+          <FilterBreadcrumb title={title} resultCount={productCount} />
+        </div>
+        <div className="md:col-span-3 col-span-1">
+          <Sorting title={title} isSearch={category?.isSearch} slug={slug} productCount={productCount} />
+        </div>
       </div>
-      <div className="grid grid-cols-4 gap-6 pb-16 items-start">
-        <div className="col-span-1 bg-white px-4 pb-6 shadow rounded overflow-hidden">
+      <div className="grid md:grid-cols-4 grid-cols-1 gap-6 pb-16 items-start">
+        <div className="col-span-1 md:sticky md:top-1 md:left-0">
           <Filters slug={slug} categories={categories} />
         </div>
-        <div className="col-span-3">
+        <div className="md:col-span-3 col-span-1">
           <FilteredProducts productCount={productCount} products={products} />
         </div>
       </div>

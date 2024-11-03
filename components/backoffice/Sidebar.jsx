@@ -18,6 +18,7 @@ import {
   UserSquare2,
   Warehouse,
   BookImage,
+  Star,
 } from "lucide-react";
 
 import {
@@ -63,6 +64,11 @@ export default function Sidebar({ showSideBar }) {
       title: "Sales",
       icon: Truck,
       href: "/dashboard/sales",
+    },
+    {
+      title: "Reviews",
+      icon: Star,
+      href: "/dashboard/reviews",
     },
     // {
     //   title: "Staff",
@@ -169,7 +175,7 @@ export default function Sidebar({ showSideBar }) {
     <div
       className={
         showSideBar
-          ? "sm:block mt-20 sm:mt-0 dark:bg-slate-800 bg-white space-y-6 w-64 text-slate-800 dark:text-slate-300 fixed left-0 top-0 shadow-md overflow-y-scroll z-50"
+          ? "sm:block mt-20 sm:mt-0 dark:bg-slate-800 bg-white space-y-6 w-64 text-slate-800 dark:text-slate-300 fixed left-0 top-0 shadow-md overflow-y-scroll z-50 min-h-screen"
           : "hidden sm:block mt-20 sm:mt-0 dark:bg-slate-800 bg-white space-y-6 w-64 h-screen text-slate-800 dark:text-slate-300 fixed left-0 top-0 shadow-md overflow-y-scroll"
       }
     >
