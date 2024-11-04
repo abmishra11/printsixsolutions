@@ -137,13 +137,20 @@ export async function GET(request) {
     const search = request.nextUrl.searchParams.get("search");
     const pageSize = 10;
 
-    // Construct the `where` clause dynamically
-    let where = {
-        ...(categoryId && { categoryId }),
-        ...(min && { salePrice: { gte: parseFloat(min) } }),
-        ...(max && { salePrice: { ...where.salePrice, lte: parseFloat(max) } })
-    };
+    // Initialize the `where` object
+    let where = {};
+    if (categoryId) {
+        where.categoryId = categoryId;
+    }
 
+    // Add salePrice filter based on `min` and `max`
+    if (min || max) {
+        where.salePrice = {};
+        if (min) where.salePrice.gte = parseFloat(min);
+        if (max) where.salePrice.lte = parseFloat(max);
+    }
+
+    console.log("Constructed WHERE clause:", where);
     // Add search filtering if search term exists
     if (search) {
         where.OR = [
@@ -155,8 +162,7 @@ export async function GET(request) {
     const orderBy = sortBy ? 
         { salePrice: sortBy === "asc" ? "asc" : "desc" } : 
         { createdAt: "desc" };
-    console.log("where: sfsdfsdfs");
-    
+
     try {
         const products = await db.product.findMany({
             where,

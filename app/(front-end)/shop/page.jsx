@@ -5,10 +5,15 @@ import Filters from "@/components/frontend/Filter/Filters";
 import Sorting from "@/components/frontend/Filter/Sorting";
 import { getData } from "@/lib/getData";
 
-export default async function page() {
+export default async function page({ params: searchParams }) {
+  const { sort = "asc", min = 0, max = "", page = 1 } = searchParams;
+
   const slug = "";
   const categories = await getData(`categories`);
-  const products = await getData(`products`);
+  const products = await getData(
+    `products?page=${page}&sort=${sort}&min=${min}&max=${max}`
+  );
+  // const products = await getData(`products`);
   const productCount = products.length;
 
   return (
