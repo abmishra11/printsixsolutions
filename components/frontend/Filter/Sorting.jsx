@@ -4,36 +4,31 @@ import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 import SearchResultsCount from "./SearchResultsCount";
 
-export default function Sorting({ title, slug, isSearch, productCount = "" }) {
+export default function Sorting({ title, pageUrl, productCount}) {
   const searchParams = useSearchParams();
   const sortParams = searchParams.get("sort");
-
   const generateHref = (baseHref, sort) => {
-    const url = new URL(baseHref, process.env.NEXT_PUBLIC_BASE_URL); // Use a base URL to manage params
+    const url = new URL(baseHref, process.env.NEXT_PUBLIC_BASE_URL);
     if (sort) {
       url.searchParams.set("sort", sort);
     }
-    return url.pathname + url.search; // Return only the path and query string
+    return url.pathname + url.search;
   };
 
   const sortingLinks = [
     {
       title: "Relevance",
-      href: isSearch ? `/search?search=${title}` : `/category/${slug}`,
+      href: pageUrl,
       sort: null,
     },
     {
       title: "Price High to Low",
-      href: isSearch
-        ? generateHref(`/search?search=${title}`, "desc")
-        : generateHref(`/category/${slug}`, "desc"),
+      href: generateHref(pageUrl, "desc"),
       sort: "desc",
     },
     {
       title: "Price Low to High",
-      href: isSearch
-        ? generateHref(`/search?search=${title}`, "asc")
-        : generateHref(`/category/${slug}`, "asc"),
+      href: generateHref(pageUrl, "asc"),
       sort: "asc",
     },
   ];
@@ -42,10 +37,7 @@ export default function Sorting({ title, slug, isSearch, productCount = "" }) {
     <div className="flex items-center justify-between w-full">
       {/* Title Section on the Left */}
       <h2 className="text-sm font-medium text-primary hidden md:block w-auto">
-        {isSearch && `Search Result - ${title}`}
-        {!isSearch && productCount && (
-          <SearchResultsCount resultCount={productCount} />
-        )}
+        <SearchResultsCount title={title} resultCount={productCount} />
       </h2>
 
       {/* Sorting Links Section on the Right */}

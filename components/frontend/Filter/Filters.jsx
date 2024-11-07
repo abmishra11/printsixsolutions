@@ -5,7 +5,7 @@ import BrandFilter from "./BrandFilter";
 import CategoryFilter from "./CategoryFilter";
 import { Filter } from "lucide-react";
 
-export default function Filters({ slug, categories }) {
+export default function Filters({ pageUrl, categories }) {
   const [filtersVisible, setFiltersVisible] = useState(false);
 
   const toggleFilters = () => {
@@ -31,7 +31,7 @@ export default function Filters({ slug, categories }) {
         <CategoryFilter categories={categories} />
 
         {/* Price Filter */}
-        <PriceFilter slug={slug} />
+        <PriceFilter pageUrl={pageUrl} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
-export default function SearchResultsCount({ resultCount }) {
+export default function SearchResultsCount({ title, resultCount }) {
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || 1;
   const pageSize = 1;
@@ -10,8 +10,9 @@ export default function SearchResultsCount({ resultCount }) {
   const endRange = Math.min(currentPage * pageSize, resultCount);
   return (
     <div  className="ml-2">
-      <p className="text-sm">
-        Showing {startRange}-{endRange} of {resultCount} results
+      <p>
+        <span className="text-primary">{title}: </span> 
+        <span className="text-white">Showing {startRange}-{endRange} of {resultCount} results</span>
       </p>
     </div>
   );

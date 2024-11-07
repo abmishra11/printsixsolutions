@@ -136,7 +136,7 @@ export async function GET(request) {
     const page = parseInt(request.nextUrl.searchParams.get("page")) || 1;
     const search = request.nextUrl.searchParams.get("search");
     const pageSize = 10;
-
+    
     // Initialize the `where` object
     let where = {};
     if (categoryId) {

@@ -2,7 +2,10 @@ import FilterComponent from "@/components/frontend/Filter/FilterComponent";
 import { getData } from "@/lib/getData";
 import React from "react";
 
-export default async function Search({ searchParams }) {
+export default async function page({ searchParams }) {
+
+  const categories = await getData("categories");
+
   const {
     sort = "asc",
     min = 0,
@@ -15,18 +18,15 @@ export default async function Search({ searchParams }) {
     `products?search=${search}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );
  
-  const category = {
-    title: search,
-    slug: "",
+  const filterData = {
+    title: `Search Result for ${search}`,
     products,
-    isSearch: true,
+    pageUrl: `/search?search=${search}`,
   };
-
-  const categories = await getData("categories");
 
   return (
     <div>
-      <FilterComponent category={category} products={products}  categories={categories} />
+      <FilterComponent filterData={filterData} categories={categories} />
     </div>
   );
 }

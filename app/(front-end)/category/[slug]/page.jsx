@@ -3,6 +3,8 @@ import { getData } from "@/lib/getData";
 import React from "react";
 
 export default async function page({ params: { slug }, searchParams }) {
+
+  const categories = await getData("categories");
   const { sort = "asc", min = 0, max = "", page = 1 } = searchParams;
   const category = await getData(`categories/filter/${slug}`);
 
@@ -10,13 +12,16 @@ export default async function page({ params: { slug }, searchParams }) {
     `products?catId=${category.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );
 
-  const categories = await getData("categories");
+  const filterData = {
+    title: category?.title,
+    products,
+    pageUrl: `/category/${slug}`
+  };
 
   return (
     <div>
       <FilterComponent
-        category={category}
-        products={products}
+        filterData={filterData}
         categories={categories}
       />
     </div>

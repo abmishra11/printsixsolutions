@@ -1,10 +1,9 @@
 "use client";
-import { Circle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-export default function PriceFilter({ slug }) {
+export default function PriceFilter({ pageUrl }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { handleSubmit, reset, register } = useForm();
@@ -13,18 +12,13 @@ export default function PriceFilter({ slug }) {
     const { min, max } = data;
     const currentParams = new URLSearchParams(searchParams.toString());
 
-    // Remove previous min and max to avoid duplicates
     currentParams.delete("min");
     currentParams.delete("max");
 
     if (min) currentParams.set("min", min);
     if (max) currentParams.set("max", max);
 
-    if (slug) {
-      router.push(`/category/${slug}?${currentParams.toString()}`);
-    } else {
-      router.push(`/shop?${currentParams.toString()}`);
-    }
+    router.push(`${pageUrl}?${currentParams.toString()}`);
     reset();
   };
 
