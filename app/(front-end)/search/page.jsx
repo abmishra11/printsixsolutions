@@ -13,7 +13,8 @@ export default async function page({ searchParams }) {
     page = 1,
     search = "",
   } = searchParams;
-
+  console.log("search:", search);
+  
   const products = await getData(
     `products?search=${search}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );

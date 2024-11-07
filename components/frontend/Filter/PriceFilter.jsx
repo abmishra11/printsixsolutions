@@ -2,23 +2,34 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function PriceFilter({ pageUrl }) {
+  console.log("pageUrl: ", pageUrl);
+  
   const router = useRouter();
   const searchParams = useSearchParams();
   const { handleSubmit, reset, register } = useForm();
 
   const onSubmit = (data) => {
     const { min, max } = data;
+
+    if (min && max && Number(min) > Number(max)) {
+      toast.error("Minimum price cannot be greater than maximum price")
+      return;
+    }
+    
     const currentParams = new URLSearchParams(searchParams.toString());
 
+    currentParams.delete("search");
     currentParams.delete("min");
     currentParams.delete("max");
 
     if (min) currentParams.set("min", min);
     if (max) currentParams.set("max", max);
-
-    router.push(`${pageUrl}?${currentParams.toString()}`);
+    console.log("currentParams:", currentParams);
+    
+    router.push(`${pageUrl}&min=${currentParams.get('min')}&max=${currentParams.get('max')}`);
     reset();
   };
 
