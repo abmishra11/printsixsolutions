@@ -7,7 +7,7 @@ export default async function FilteredProducts({
   productCount,
 }) {
   // Pagination
-  const pageSize = 1;
+  const pageSize = 12;
   const totalPages = Math.ceil(productCount / pageSize);
   return (
     <div>
@@ -18,9 +18,9 @@ export default async function FilteredProducts({
           );
         })}
       </div>
-      <div className="p-8 mx-auto flex items-center justify-center">
-        {/* <Paginate totalPages={totalPages} /> */}
-      </div>
+      {/* <div className="mt-8">
+        <Paginate totalPages={totalPages} />
+      </div> */}
     </div>
   );
 }

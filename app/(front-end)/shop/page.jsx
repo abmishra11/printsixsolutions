@@ -17,6 +17,7 @@ export default async function page({ searchParams }) {
     title: "Shop",
     products,
     pageUrl: `/shop`,
+    search: ""
   };
 
   return (

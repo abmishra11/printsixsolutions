@@ -39,12 +39,12 @@ export default async function page() {
         <DashboardCharts sales={sales} orders={orders} />
         {/* Recent Orders Table */}
 
-        <div className="hidden md:block">
+        {/* <div className="hidden md:block">
           <h2 className="text-xl font-bold text-slate-50 py-4">
             Recent Orders
           </h2>
           <CustomDataTable data={orders} />
-        </div>
+        </div> */}
       </div>
     );
   }

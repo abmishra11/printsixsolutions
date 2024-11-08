@@ -22,7 +22,8 @@ export default async function page({ searchParams }) {
   const filterData = {
     title: `Search Result for ${search}`,
     products,
-    pageUrl: `/search?search=${search}`,
+    pageUrl: `/search`,
+    search
   };
 
   return (

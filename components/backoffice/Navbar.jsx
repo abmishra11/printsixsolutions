@@ -24,7 +24,7 @@ export default function Navbar({ showSideBar, setShowSideBar }) {
   }
 
   return (
-    <div className="flex items-center justify-between bg-white dark:bg-slate-800 text-slate-50 h-20 py-8 fixed top-0 w-full px-8 z-50 sm:pr-[20rem]">
+    <div className={`flex items-center justify-between bg-slate-800 text-slate-50 h-20 py-8 fixed top-0 w-full px-8 z-50 sm:pr-[20rem]`}>
       <Link href={"/dashboard"} className="sm:hidden">
         PrintSix
       </Link>
@@ -36,7 +36,7 @@ export default function Navbar({ showSideBar, setShowSideBar }) {
         <AlignJustify />
       </button>
       {/* { 3 Icons } */}
-      <div className="flex space-x-3">
+      <div className={`flex space-x-3`}>
         {/* <ThemeSwitcherBtn /> */}
         <DashboardNotifications user={session?.user} />
         {status === "authenticated" && <UserAvatar user={session?.user} />}
