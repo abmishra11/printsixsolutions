@@ -12,7 +12,7 @@ export default function Orders({ orders }) {
                 return <OrderCard key={i} order={order} />;
               })
             ) : (
-              <li>You have not make any order yet</li>
+              <li className="text-center">You have not make any order yet</li>
             )}
           </ul>
         </div>

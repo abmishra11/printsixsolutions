@@ -16,12 +16,7 @@ import { useSession } from "next-auth/react";
 import DashboardNotifications from "./DashboardNotifications";
 import { getData } from "@/lib/getData";
 
-export default function Navbar({ showSideBar, setShowSideBar }) {
-  const { data: session, status } = useSession();
-
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
+export default function Navbar({ showSideBar, setShowSideBar, session, status }) {
 
   return (
     <div className={`flex items-center justify-between bg-slate-800 text-slate-50 h-20 py-8 fixed top-0 w-full px-8 z-50 sm:pr-[20rem]`}>

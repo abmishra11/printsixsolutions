@@ -92,7 +92,7 @@ export async function PUT(request, {params: { id }}){
             data: {orderStatus}
         })
 
-        console.log(updateOrder);
+        console.log("updateOrder:", updateOrder);
         return NextResponse.json(updateOrder)
     } catch (error) {
         console.log(error);

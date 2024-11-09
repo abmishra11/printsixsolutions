@@ -68,7 +68,7 @@ export default function AddressCard({
             )}
             <Link
               href={`/dashboard/customer/addresses/${address.id}`}
-              className="bg-lime-500 text-white text-center py-2 px-4 rounded-md"
+              className="bg-lime-500 text-white py-2 px-4 rounded-md flex justify-center items-center"
             >
               Edit
             </Link>

@@ -80,8 +80,7 @@ export default function LoginForm() {
           </small>
         )}
       </div>
-      <div className="mt-6 mb-6">
-        {/* Remember Me Section */}
+      {/* <div className="mt-6 mb-6">
         <div className="flex items-center">
           <input
             type="checkbox"
@@ -92,7 +91,7 @@ export default function LoginForm() {
             Remember Me
           </label>
         </div>
-      </div>
+      </div> */}
       {loading ? (
         <button
           disabled={loading}

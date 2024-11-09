@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import AddressList from "@/components/backoffice/customer/AddressList";
 
-export default async function Page() {
+export default async function page() {
   const session = await getServerSession(authOptions);
   if (!session) {
     return null;

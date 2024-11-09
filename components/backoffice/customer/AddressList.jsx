@@ -138,17 +138,20 @@ export default function AddressList({ addressesArr }) {
           </Link>
         </div>
       </div>
-
-      {addresses.map((address) => (
-        <AddressCard
-          key={address.id}
-          address={address}
-          onSetDefaultBilling={handleSetDefaultBilling}
-          onSetDefaultShipping={handleSetDefaultShipping}
-          onEdit={handleEditAddress}
-          onDelete={handleDeleteAddress}
-        />
-      ))}
+      {addresses.length > 0 ? (
+        addresses.map((address) => (
+          <AddressCard
+            key={address.id}
+            address={address}
+            onSetDefaultBilling={handleSetDefaultBilling}
+            onSetDefaultShipping={handleSetDefaultShipping}
+            onEdit={handleEditAddress}
+            onDelete={handleDeleteAddress}
+          />
+        ))
+      ) : (
+        <p className="text-center">You have not added any addresses yet</p>
+      )}
     </div>
   );
 }
