@@ -2,6 +2,7 @@ import AddToCartButton from "@/components/frontend/AddToCartButton";
 import Breadcrumb from "@/components/frontend/Breadcrumb";
 import CategoryCarousel from "@/components/frontend/CategoryCarousel";
 import ProductImageCarousel from "@/components/frontend/ProductImageCarousel";
+import ProductRating from "@/components/frontend/ProductRating";
 import ProductReview from "@/components/frontend/productreview/ProductReview";
 import ProductReviewForm from "@/components/frontend/productreview/ProductReviewForm";
 import ProductShareButton from "@/components/frontend/ProductShareButton";
@@ -24,7 +25,6 @@ import React from "react";
 export default async function ProductDetailPage({ params: { slug } }) {
   const product = await getData(`/products/product/${slug}`);
   const productReviews = await getData(`review/product/${product?.id}`);
-
   const catId = product.categoryId;
   const category = await getData(`categories/${catId}`);
   const categoryProducts = category.products;
@@ -37,7 +37,6 @@ export default async function ProductDetailPage({ params: { slug } }) {
   const userId = user?.id;
 
   const userData = userId ? await getData(`users/${userId}`) : null;
-  console.log("userData:", userData);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${slug}`;
@@ -67,24 +66,7 @@ export default async function ProductDetailPage({ params: { slug } }) {
             </p>
           </div>
           <div className="flex items-center mt-4">
-            <div className="flex gap-1 text-sm text-yellow-400">
-              <span>
-                <Star />
-              </span>
-              <span>
-                <Star />
-              </span>
-              <span>
-                <Star />
-              </span>
-              <span>
-                <Star />
-              </span>
-              <span>
-                <Star />
-              </span>
-            </div>
-            <div className="text-xs text-gray-500 ml-3">(150 Reviews)</div>
+            <ProductRating reviews={productReviews} />
           </div>
           <div className="flex items-center gap-4 pt-4 border-b border-gray-500 pb-4">
             <div className="flex items-center justify-between gap-4">

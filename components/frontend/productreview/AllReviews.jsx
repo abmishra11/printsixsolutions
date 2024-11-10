@@ -11,16 +11,22 @@ export default function AllReviews({ reviews }) {
           <h2 className="text-2xl text-primary mr-2 font-bold">
             Over All Rating
           </h2>
-          <ProductReview
+          {reviews.length === 0 ? (
+            <h2 className="text-2xl text-primary font-bold">No reviews yet</h2>
+          ) : (
+            <ProductReview
             stars={
               reviews.reduce((acc, review) => acc + review.rating, 0) /
                 reviews.length || 0
             }
             reviews={reviews.length}
           />
+          )}
+
         </div>
       </div>
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 max-h-96 overflow-scroll">
+      {reviews.length > 0 && (
+        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8 max-h-96 overflow-scroll">
         <div className="text-center">
           <h2 className="text-2xl text-primary mr-2 font-bold ">
             Customer's Reviews
@@ -33,6 +39,7 @@ export default function AllReviews({ reviews }) {
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }

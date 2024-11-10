@@ -50,6 +50,16 @@ export default function ProductReviewForm({
       return;
     }
 
+    if (!userData?.role === "ADMIN") {
+      toast.error("Admin cannot add reviews.");
+      return;
+    }
+
+    if (!userData?.role === "VENDOR") {
+      toast.error("Admin cannot add reviews.");
+      return;
+    }
+
     setLoading(true);
 
     // const newReview = {

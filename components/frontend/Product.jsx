@@ -53,7 +53,7 @@ export default function Product({ product }) {
             ${product.productPrice}
           </p>
         </div>
-        <ProductRating/>
+        <ProductRating reviews={product.reviews} />
         <AddToCartButton product={product} />
       </div>
     </div>

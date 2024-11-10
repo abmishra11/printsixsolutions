@@ -1,31 +1,20 @@
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import { Star, StarHalf } from 'lucide-react'
 import React from 'react'
+import ProductReview from './productreview/ProductReview';
 
-const ProductRating = () => {
+export default function ProductRating({ reviews }){
+  const rating = reviews?.length;
   return (
     <div className="flex items-center">
-          <div className="flex gap-1 text-sm text-yellow-400">
-            <span>
-              <StarFilledIcon />
-            </span>
-            <span>
-              <StarFilledIcon />
-            </span>
-            <span>
-              <StarFilledIcon />
-            </span>
-            <span>
-              <StarFilledIcon />
-            </span>
-            <span>
-              <Star width={15}  height={15} />
-
-            </span>
-          </div>
-          <div className="text-xs text-gray-500 ml-3">(150)</div>
-        </div>
-  )
+      <ProductReview
+        stars={
+              reviews?.reduce((acc, review) => acc + review?.rating, 0) /
+                reviews?.length || 0
+            }
+        reviews={reviews?.length}
+      />
+      <div className="text-xs text-gray-500 ml-3">({rating } {`${(rating === 1 || rating === 0) ? ' Review' : 'Reviews'}`})</div>
+    </div>
+  );
 }
-
-export default ProductRating
