@@ -66,8 +66,9 @@ export default async function middleware(req) {
 
 export const config = {
     matcher: [
-        "/dashboard/:path*",  // Match dashboard routes
-        "/checkout"  // Match checkout route
+        "/dashboard/:path*",
+        "/checkout",
+        "/cart"
     ]
 };
 

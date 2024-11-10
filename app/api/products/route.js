@@ -149,8 +149,7 @@ export async function GET(request) {
         if (min) where.salePrice.gte = parseFloat(min);
         if (max) where.salePrice.lte = parseFloat(max);
     }
-
-    console.log("Constructed WHERE clause:", where);
+    
     // Add search filtering if search term exists
     if (search) {
         where.OR = [

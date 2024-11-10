@@ -118,12 +118,13 @@ export default function ProductForm({ categories, vendor, updateData = {} }) {
           className="w-full"
         />
         <TextInput
-          label={"* Product Barcode"}
+          label={"Product Barcode"}
           name={"barcode"}
           reset={reset}
           register={register}
           errors={errors}
           className="w-full"
+          isRequired={false}
         />
         <TextInput
           label={"* Product Price (Before Discount)"}
@@ -259,5 +260,5 @@ export default function ProductForm({ categories, vendor, updateData = {} }) {
         }
       />
     </form>
-  );
+  )
 }

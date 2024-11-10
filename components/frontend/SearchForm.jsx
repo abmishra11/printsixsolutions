@@ -22,7 +22,7 @@ export default function SearchForm() {
               type="text"
               id="voice-search"
               className="text-gray-900 w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md"
-              placeholder="Search products and categories..."
+              placeholder="Search products..."
               required
             />
             <button className="bg-primary border border-primary text-white px-8 rounded-r-md transition">

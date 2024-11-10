@@ -4,6 +4,7 @@ import React from "react";
 import Product from "./Product";
 
 export default function NewArivals({ products }) {
+
   return (
     <div className="container pb-16">
       <h2 className="text-2xl font-medium text-primary uppercase mb-6">

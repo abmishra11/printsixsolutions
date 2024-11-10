@@ -24,14 +24,14 @@ import React from "react";
 
 export default async function ProductDetailPage({ params: { slug } }) {
   const product = await getData(`/products/product/${slug}`);
-  const productReviews = await getData(`review/product/${product?.id}`);
+  const productReviews = product?.reviews
   const catId = product.categoryId;
   const category = await getData(`categories/${catId}`);
   const categoryProducts = category.products;
   const similarProducts = categoryProducts.filter(
     (similarProduct) => similarProduct.id !== product.id
   );
-
+  
   const session = await getServerSession(authOptions);
   const user = session?.user;
   const userId = user?.id;

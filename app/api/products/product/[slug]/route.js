@@ -1,22 +1,32 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function GET(request, {params: { slug }}){
+export async function GET(request, { params: { slug } }) {
     try {
         const product = await db.product.findUnique({
             where: {
                 slug,
             },
-        })
+            include: {
+                reviews: true,
+                category: true,
+            },
+        });
 
-        return NextResponse.json(product)
+        if (!product) {
+            return NextResponse.json(
+                { message: "Product not found" },
+                { status: 404 }
+            );
+        }
+
+        return NextResponse.json(product);
     } catch (error) {
-        console.log(error);
+        console.error("Error fetching product:", error);
         return NextResponse.json(
-            {
-                
-            }
-        )
+            { message: "An error occurred while fetching the product" },
+            { status: 500 }
+        );
     }
 }
 

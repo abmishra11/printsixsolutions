@@ -8,7 +8,11 @@ export async function GET(request, {params: { id }}){
                 id,
             },
             include: {
-                products: true,
+                products: {
+                    include: {
+                        reviews: true,
+                    },
+                },
             },
         })
 
