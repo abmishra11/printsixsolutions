@@ -1,8 +1,4 @@
 import React from "react";
-import Breadcrumb from "@/components/frontend/Breadcrumb";
-import FilteredProducts from "@/components/frontend/Filter/FilteredProducts";
-import Filters from "@/components/frontend/Filter/Filters";
-import Sorting from "@/components/frontend/Filter/Sorting";
 import { getData } from "@/lib/getData";
 import FilterComponent from "@/components/frontend/Filter/FilterComponent";
 
