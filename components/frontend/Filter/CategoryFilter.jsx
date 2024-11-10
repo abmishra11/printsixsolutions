@@ -1,22 +1,7 @@
-"use client"
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function CategoryFilter({ categories }) {
-  const [urlLoaded, setUrlLoaded] = useState(false);
-  useEffect(() => {
-    setUrlLoaded(true)
-  }, [])
 
-  // const router = useRouter();
-
-  // if(urlLoaded){
-  //   const { slug } = router.query;
-  //   console.log("slug: ", slug);
-  // }
-  
-  
   return (
     <div>
       <h3 className="text-xl text-gray-800 mb-3 font-medium">Categories</h3>
@@ -34,9 +19,7 @@ export default function CategoryFilter({ categories }) {
               /> */}
               <Link
                 href={`/category/${category.slug}`}
-                className={`cursor-pointer ml-2 ${
-                  isSelected ? "text-primary font-semibold" : "text-gray-600"
-                }`}
+                className={`cursor-pointer text-gray-600`}
                 onClick={() => handleCategoryClick(category.slug)} // Update selected category on click
                 aria-label={`Filter by ${category.title} category`}
               >
