@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function ShopByCategory({ categories }) {
@@ -23,22 +24,27 @@ export default function ShopByCategory({ categories }) {
                     opacity: "0.2",
                   }}
                 ></div>
-                <Image
-                  src={category.imageUrl}
-                  alt={category.title}
-                  className="w-full h-48"
-                  width={100}
-                  height={100}
-                />
+                <Link
+                  href={`/category/${category.slug}`}
+                  className=""
+                >
+                  <Image
+                    src={category.imageUrl}
+                    alt={category.title}
+                    className="w-full h-48"
+                    width={100}
+                    height={100}
+                  />
+                </Link>
               </div>
               <div class="relative text-white px-6 pb-6 mt-6 py-4">
                 <div class="flex justify-between">
-                  <a
+                  <Link
                     href={`/category/${category.slug}`}
                     className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white font-roboto group-hover:bg-opacity-50 transition font-semibold text-xl"
                   >
                     {category.title}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

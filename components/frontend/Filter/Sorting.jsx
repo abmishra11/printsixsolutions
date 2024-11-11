@@ -5,12 +5,17 @@ import React from "react";
 import SearchResultsCount from "./SearchResultsCount";
 
 export default function Sorting({ title, pageUrl, productCount}) {
+  console.log("title", title);
   const searchParams = useSearchParams();
   const sortParams = searchParams.get("sort");
-  const generateHref = (baseHref, sort) => {
+  const search = searchParams.get("search");
+  const generateHref = (baseHref, sort, search) => {
     const url = new URL(baseHref, process.env.NEXT_PUBLIC_BASE_URL);
     if (sort) {
       url.searchParams.set("sort", sort);
+    }
+    if (search) {
+      url.searchParams.set("search", search);
     }
     return url.pathname + url.search;
   };
@@ -18,17 +23,17 @@ export default function Sorting({ title, pageUrl, productCount}) {
   const sortingLinks = [
     {
       title: "Relevance",
-      href: pageUrl,
+      href: generateHref(pageUrl, "", search),
       sort: null,
     },
     {
       title: "Price High to Low",
-      href: generateHref(pageUrl, "desc"),
+      href: generateHref(pageUrl, "desc", search),
       sort: "desc",
     },
     {
       title: "Price Low to High",
-      href: generateHref(pageUrl, "asc"),
+      href: generateHref(pageUrl, "asc", search),
       sort: "asc",
     },
   ];
