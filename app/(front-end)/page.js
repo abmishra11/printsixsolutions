@@ -12,19 +12,21 @@ import { getData } from "@/lib/getData";
 import { getServerSession } from "next-auth";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  const categoriesData = await getData("categories")
-  const categories = categoriesData.filter((category) => category.products.length > 0)
+  const categoriesData = await getData("categories");
+  const categories = categoriesData.filter(
+    (category) => category.products.length > 0
+  );
 
   const products = await getData("products");
 
   return (
     <div className="min-h-screen">
-      <HomeBanner/>
-      <SupportSection/>
-      <ShopByCategory categories={categories}/>
-      <NewArivals products={products}/>
+      <HomeBanner />
+      <SupportSection />
+      <ShopByCategory categories={categories} />
+      <NewArivals products={products} />
       {/* <Hero categories={categories}/> */}
       {/* <VendorList/> */}
       {/* {

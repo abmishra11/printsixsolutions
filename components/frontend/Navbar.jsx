@@ -21,35 +21,12 @@ import UserAvatar from "../backoffice/UserAvatar";
 export default function Navbar({ categories }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { data: session, status } = useSession();
-
-  // useEffect(()=>{
-  //   if (status === "loading") {
-  //    showLoader(true);
-  //   }
-  //   ()=>{
-  //     showLoader(false);
-  //   }
-  // },[status])
-
-  // const showLoader = (show)=>{
-  //   if(show){
-  //     return <p>Loading...</p>;
-  //   }else{
-  //     return null;
-  //   }
-
-  // }
-
-  // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
   const toggleSearch = () => {
     setIsSearchVisible((prevState) => !prevState);
   };
 
-  // State to track whether the mobile menu is open
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Toggle function to open/close the menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -113,42 +90,58 @@ export default function Navbar({ categories }) {
         </div>
       </header>
       <nav className="bg-gray-800">
-        <div className="container md:{block}">
+        <div className="container mx-auto px-4 md:px-8 relative">
           {/* Hamburger Icon for Mobile */}
           <div
-            className="px-8 py-4 cursor-pointer flex items-center justify-center md:hidden"
+            className="px-4 py-4 cursor-pointer flex items-center justify-center md:hidden"
             onClick={toggleMenu}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
           >
             <MenuIcon />
           </div>
-          {/* Navigation Items */}
-          <div className={`${isMenuOpen ? "block" : "hidden"} md:flex`}>
-            <div className="px-8 bg-primary py-4 cursor-pointer relative group text-center">
-              <span className="capitalize ml-2 text-white">All Categories</span>
-              <div className="absolute w-full left-0 top-full bg-white shadow-md py-3 divide-y divide-gray-300 divide-dashed opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible z-50">
-                {categories.map((category) => (
-                  <Link
-                    key={category.slug}
-                    href={`/category/${category.slug}`}
-                    className="flex items-center px-6 py-3 hover:bg-gray-100 transition"
-                  >
-                    <Image
-                      src={`${category.imageUrl}`}
-                      width={100}
-                      height={100}
-                      alt={category.title}
-                      className="w-5 h-5 object-contain"
-                    />
-                    <span className="ml-6 text-gray-600 text-sm">
-                      {category.title}
-                    </span>
-                  </Link>
-                ))}
+
+          {/* Navigation Wrapper */}
+          <div
+            className={`${
+              isMenuOpen ? "block" : "hidden"
+            } md:flex md:items-center`}
+          >
+            {/* All Categories Button */}
+            <div className="relative group">
+              <div className="px-4 bg-primary py-4 cursor-pointer text-center">
+                <span className="capitalize text-white">All Categories</span>
+              </div>
+
+              {/* Full-width Mega Menu */}
+              <div className="absolute left-0 top-full md:w-[1300px] bg-white shadow-md py-4 opacity-0 group-hover:opacity-100 transition duration-300 invisible group-hover:visible z-50">
+                <div className="container px-4 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {categories.map((category) => (
+                    <Link
+                      key={category.slug}
+                      href={`/category/${category.slug}`}
+                      className="p-2 hover:bg-gray-100 transition"
+                    >
+                      <div className="items-center text-center">
+                        <Image
+                          src={category.imageUrl}
+                          width={200}
+                          height={200}
+                          alt={category.title}
+                          className="w-full h-24 object-contain"
+                        />
+                        <span className="mt-8 text-primary">
+                          {category.title}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 
             {/* Menu Links */}
-            <div className="flex flex-col md:flex-row items-center justify-between pl-8 space-y-4 md:space-y-0 md:space-x-4 header-menu">
+            <div className="flex flex-col md:flex-row items-center justify-between pl-4 space-y-4 md:space-y-0 md:space-x-4 header-menu">
               <Link
                 href="/"
                 className="text-gray-200 hover:text-white transition p-4"
