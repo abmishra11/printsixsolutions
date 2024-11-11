@@ -1,6 +1,4 @@
 import CategoryList from "@/components/frontend/CategoryList";
-import Footer from "@/components/frontend/Footer";
-import Hero from "@/components/frontend/Hero";
 import HomeBanner from "@/components/frontend/HomeBanner";
 import Navbar from "@/components/frontend/Navbar";
 import NewArivals from "@/components/frontend/NewArivals";
