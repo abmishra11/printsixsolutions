@@ -18,9 +18,15 @@ import HelpModal from "./HelpModal";
 import CartCount from "./CartCount";
 import { useSession } from "next-auth/react";
 import UserAvatar from "../backoffice/UserAvatar";
+import Spinner from "../spinners/Spinner";
 export default function Navbar({ categories }) {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    <Spinner />;
+  }
+
   const toggleSearch = () => {
     setIsSearchVisible((prevState) => !prevState);
   };

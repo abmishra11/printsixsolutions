@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { clearCart, removeFromCart } from "@/redux/slices/cartSlice";
+import { sendEmail } from "@/lib/sendEmail";
 
 export default function OrderSummary() {
   const [loading, setLoading] = useState(false);
@@ -48,12 +49,47 @@ export default function OrderSummary() {
         body: JSON.stringify(data),
       });
       const responseData = await response.json();
-      console.log(responseData);
+      console.log("Order Confirmation Response:", responseData);
       if (response.ok) {
+        const shippingaddress =
+          responseData.streetAddress1 +
+          ", " +
+          responseData.streetAddress2 +
+          ", " +
+          responseData.city +
+          ", " +
+          responseData.state +
+          ", " +
+          responseData.country +
+          ", " +
+          responseData.zipcode;
+        const billingaddress =
+          responseData.billingStreetAddress1 +
+          ", " +
+          responseData.billingStreetAddress2 +
+          ", " +
+          responseData.billingCity +
+          ", " +
+          responseData.billingState +
+          ", " +
+          responseData.billingCountry +
+          ", " +
+          responseData.billingZipcode;
+        const emailData = {
+          to: responseData.email,
+          subject: "Order Confirmation",
+          templateName: "lib/emailtemplates/orderConfirmation.ejs",
+          templateVariables: {
+            order_id: responseData.orderNumber,
+            customer_name: responseData.name,
+            order_details: baseUrl + "/order-confirmation/" + responseData.id,
+            shipping_address: shippingaddress,
+            billing_address: billingaddress,
+          },
+        };
+        await sendEmail(emailData);
         toast.success("You have placed your order Successfully");
-
         dispatch(clearCart());
-
         router.push(`/order-confirmation/${responseData.id}`);
       } else {
         toast.error("Something Went wrong, please try again");
