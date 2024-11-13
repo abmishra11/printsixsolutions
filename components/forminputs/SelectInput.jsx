@@ -7,6 +7,7 @@ export default function SelectInput({
   className = "sm:col-span-2",
   options = [],
   multipleSelect = false,
+  isRequired = true,
 }) {
   return (
     <div className={className}>
@@ -14,7 +15,7 @@ export default function SelectInput({
         htmlFor={name}
         className="block font-medium leading-6 text-gray-900 dark:text-slate-50 mb-2"
       >
-        {label}
+        {isRequired ? `* ${label}` : `${label}`}
       </label>
       <div className="mt-2">
         <select
@@ -22,6 +23,7 @@ export default function SelectInput({
           multiple={multipleSelect}
           id={name}
           name={name}
+          required={isRequired}
           className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6 dark:bg-transparent dark:text-slate-50"
         >
           {options.map((option, i) => {

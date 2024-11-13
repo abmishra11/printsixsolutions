@@ -10,8 +10,11 @@ import {
   updateCheckoutFormData,
 } from "@/redux/slices/checkoutSlice";
 import SelectInput from "@/components/forminputs/SelectInput";
+import { fa } from "@faker-js/faker";
 
 export default function ShippingDetailsForm({ addresses }) {
+  const [loading, setLoading] = useState(false);
+
   let defaultShippingAddress = {};
   if (addresses.length > 0) {
     const shippingAddress = addresses.filter(
@@ -103,7 +106,18 @@ export default function ShippingDetailsForm({ addresses }) {
     }
   }, [selectedAddress, reset, isAddingNewAddress]);
 
+  const [shippinCostSelected, setShippingCostSelected] = useState(false);
+
   async function processData(data) {
+    setLoading(true);
+    console.log("shippingCost: ", shippingCost);
+
+    if (shippingCost === "") {
+      setShippingCostSelected(true);
+    } else {
+      setShippingCostSelected(false);
+    }
+
     let shippingFormData = {};
     if (!data.shippingAddressId) {
       const newAddressData = {
@@ -164,12 +178,9 @@ export default function ShippingDetailsForm({ addresses }) {
         shippingCost: shippingCost,
       };
     }
-
-    console.log("shippingFormData", shippingFormData);
-    // Update the checkout data
     dispatch(updateCheckoutFormData(shippingFormData));
-    // Update the current step
     dispatch(setCurrentStep(currentStep + 1));
+    setLoading(false);
   }
 
   return (
@@ -343,7 +354,7 @@ export default function ShippingDetailsForm({ addresses }) {
         {/* Shipping Cost */}
         <div className="col-span-full">
           <h3 className="mb-2 mt-6 text-sm font-medium text-gray-900 dark:text-white">
-            Shipping Cost ?
+            * Shipping Cost
           </h3>
           <ul className="grid w-full gap-6 md:grid-cols-2">
             <li>
@@ -353,14 +364,12 @@ export default function ShippingDetailsForm({ addresses }) {
                 name="shippingCost"
                 value="8"
                 className="hidden peer"
-                required
                 onChange={(e) => setShippingCost(e.target.value)}
               />
               <label
                 htmlFor="cheap"
                 className="inline-flex items-center justify-between w-full p-5 text-white bg-white border border-gray-200 rounded-lg cursor-pointer dark:peer-checked:text-primary peer-checked:border-primary peer-checked:text-primary dark:text-white dark:bg-gray-800"
               >
-                {/* Design the Label */}
                 <div className="flex gap-2 items-center">
                   <Truck className="w-8 h-8 ms-3 flex-shrink-0" />
                   <div className="">
@@ -378,14 +387,12 @@ export default function ShippingDetailsForm({ addresses }) {
                 name="shippingCost"
                 value="20"
                 className="hidden peer"
-                required
                 onChange={(e) => setShippingCost(e.target.value)}
               />
               <label
                 htmlFor="expensive"
                 className="inline-flex items-center justify-between w-full p-5 text-white bg-white border border-gray-200 rounded-lg cursor-pointer dark:peer-checked:text-primary peer-checked:border-primary peer-checked:text-primary dark:text-white dark:bg-gray-800"
               >
-                {/* Design the Label */}
                 <div className="flex gap-2 items-center">
                   <Truck className="w-8 h-8 ms-3 flex-shrink-0" />
                   <div className="">
@@ -397,9 +404,12 @@ export default function ShippingDetailsForm({ addresses }) {
               </label>
             </li>
           </ul>
+          {shippinCostSelected && (
+            <p className="text-red-500">Please select shipping cost</p>
+          )}
+          <p></p>
         </div>
-
-        <NavButtons />
+        <NavButtons loading={loading} />
       </form>
     </div>
   );

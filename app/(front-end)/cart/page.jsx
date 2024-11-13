@@ -3,10 +3,13 @@ import Breadcrumb from "@/components/frontend/Breadcrumb";
 import CartItems from "@/components/frontend/CartItems";
 import CartSubTotalCard from "@/components/frontend/CartSubTotalCard";
 import EmptyCart from "@/components/frontend/EmptyCart";
+import { setCurrentStep } from "@/redux/slices/checkoutSlice";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Cart() {
+  const dispatch = useDispatch();
+  dispatch(setCurrentStep(1));
   const cartItems = useSelector((store) => store.cart);
   const subTotal = cartItems
     .reduce((acc, item) => {
