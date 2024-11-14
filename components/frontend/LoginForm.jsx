@@ -43,7 +43,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <label htmlFor="email" className="text-white mb-2 block">
-          Your email
+          * Your email
         </label>
         <input
           {...register("email", { required: true })}
@@ -55,15 +55,13 @@ export default function LoginForm() {
           required=""
         />
         {errors.email && (
-          <small className="text-red-600 text-sm ">
-            This field is required
-          </small>
+          <small className="text-red-600 mt-4">This field is required</small>
         )}
-        <small className="text-red-600 text-sm ">{emailErr}</small>
+        <small className="text-red-600 mt-4">{emailErr}</small>
       </div>
       <div>
         <label htmlFor="password" className="text-white mb-2 block">
-          Password
+          * Password
         </label>
         <input
           {...register("password", { required: true })}
@@ -75,9 +73,7 @@ export default function LoginForm() {
           required=""
         />
         {errors.password && (
-          <small className="text-red-600 text-sm ">
-            This field is required
-          </small>
+          <small className="text-red-600 mt-4">This field is required</small>
         )}
       </div>
       {/* <div className="mt-6 mb-6">

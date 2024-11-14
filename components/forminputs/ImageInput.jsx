@@ -18,7 +18,7 @@ export default function ImageInput({
         htmlFor={name}
         className="block font-medium leading-6 text-gray-900 dark:text-slate-50 mb-2"
       >
-        {label}
+        {isRequired ? `* ${label}` : `${label}`}
       </label>
       <DropZoneSingleFiles
         className="p-10 border border-neutral-200 rounded-md text-gray-900 dark:text-slate-100 text-center cursor-pointer mb-4"

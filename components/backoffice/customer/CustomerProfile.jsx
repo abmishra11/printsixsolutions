@@ -1,4 +1,4 @@
-import { convertIsoDateToNormal } from "@/lib/convertIsoDateToNormal";
+import { convertIsoDateToFormattedDate } from "@/lib/convertIsoDateToFormattedDate";
 import { User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -90,7 +90,7 @@ export default function CustomerProfile({ userProfile }) {
                         Date of Birth
                       </label>
                       <p className="text-lg font-medium">
-                        {convertIsoDateToNormal(
+                        {convertIsoDateToFormattedDate(
                           userProfile?.profile?.dateOfBirth
                         )}
                       </p>

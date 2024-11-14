@@ -102,21 +102,21 @@ export default function NewCategoryForm({ categories, updateData = {} }) {
     >
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <TextInput
-          label={"* Category Title"}
+          label={"Category Title"}
           name={"title"}
           reset={reset}
           register={register}
           errors={errors}
         />
         <TextareaInput
-          label={"* Category Description"}
+          label={"Category Description"}
           name={"description"}
           reset={reset}
           register={register}
           errors={errors}
         />
         <ImageInput
-          label={"* Category Image"}
+          label={"Category Image"}
           name={"categoryimage"}
           reset={reset}
           register={register}

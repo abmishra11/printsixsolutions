@@ -85,7 +85,7 @@ export default function ForgotPasswordForm() {
                 htmlFor="email"
                 className="block mb-2 font-medium text-gray-900 dark:text-white"
               >
-                Enter Your Email
+                * Enter Your Email
               </label>
               <input
                 {...register("email", {

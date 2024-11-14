@@ -92,7 +92,7 @@ export default function RegisterForm({ role = "USER" }) {
         </div>
         <div>
           <label htmlFor="name" className="text-white mb-2 block">
-            Your name
+            * Your name
           </label>
           <input
             {...register("name", { required: true })}
@@ -109,7 +109,7 @@ export default function RegisterForm({ role = "USER" }) {
         </div>
         <div>
           <label htmlFor="email" className="text-white mb-2 block">
-            Your email
+            * Your email
           </label>
           <input
             {...register("email", { required: true })}
@@ -127,7 +127,7 @@ export default function RegisterForm({ role = "USER" }) {
         </div>
         <div>
           <label htmlFor="password" className="text-white mb-2 block">
-            Password
+            * Password
           </label>
           <input
             {...register("password", {

@@ -13,7 +13,7 @@ export default function TextareaInput({
         htmlFor={name}
         className="block font-medium leading-6 text-gray-900 dark:text-slate-50 mb-2"
       >
-        {label}
+        {isRequired ? `* ${label}` : `${label}`}
       </label>
       <div className="mt-2">
         <textarea

@@ -3,8 +3,10 @@ import { getData } from "@/lib/getData";
 import React from "react";
 
 export default async function page({ searchParams }) {
-
   const categories = await getData("categories");
+  const filteredCategories = categories.filter(
+    (category) => category.products && category.products.length > 0
+  );
 
   const {
     sort = "asc",
@@ -14,21 +16,24 @@ export default async function page({ searchParams }) {
     search = "",
   } = searchParams;
   console.log("search:", search);
-  
+
   const products = await getData(
     `products?search=${search}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );
- 
+
   const filterData = {
     title: `Search Result for ${search}`,
     products,
     pageUrl: `/search`,
-    search
+    search,
   };
 
   return (
     <div>
-      <FilterComponent filterData={filterData} categories={categories} />
+      <FilterComponent
+        filterData={filterData}
+        categories={filteredCategories}
+      />
     </div>
   );
 }
