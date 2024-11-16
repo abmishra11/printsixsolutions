@@ -6,14 +6,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
 export default async function NewProduct() {
-  // Categories and Farmers
   const categoriesData = await getData("categories");
-  const categories = categoriesData.map((category) => {
-    return {
-      id: category.id,
-      title: category.title,
-    };
-  });
+  const categories = categoriesData.map((category) => category);
+  console.log("categories: ", categories);
 
   // Getting logged in user id
   const session = await getServerSession(authOptions);

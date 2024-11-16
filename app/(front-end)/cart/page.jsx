@@ -11,6 +11,8 @@ export default function Cart() {
   const dispatch = useDispatch();
   dispatch(setCurrentStep(1));
   const cartItems = useSelector((store) => store.cart);
+  console.log("cartItems: ", cartItems);
+
   const subTotal = cartItems
     .reduce((acc, item) => {
       return acc + item.salePrice * item.qty;

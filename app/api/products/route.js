@@ -62,32 +62,34 @@ export async function POST(request) {
       );
     }
 
-    const existingBarcodeProduct = await db.product.findUnique({
-      where: {
-        barcode,
-      },
-    });
-
-    if (existingBarcodeProduct) {
-      return NextResponse.json(
-        {
-          data: null,
-          message: "Product Barcode already exists",
+    if (barcode) {
+      const existingBarcodeProduct = await db.product.findUnique({
+        where: {
+          barcode,
         },
-        {
-          status: 409,
-        }
-      );
+      });
+
+      if (existingBarcodeProduct) {
+        return NextResponse.json(
+          {
+            data: null,
+            message: "Product Barcode already exists",
+          },
+          {
+            status: 409,
+          }
+        );
+      }
     }
 
     const data = {
-      barcode,
+      barcode: barcode?.trim() === "" ? null : barcode,
       category: {
-        connect: { id: categoryId }, // Correctly connect to the category
+        connect: { id: categoryId },
       },
       description,
       user: {
-        connect: { id: userId }, // Correctly connect to the category
+        connect: { id: userId },
       },
       productImages,
       imageUrl,
@@ -134,7 +136,7 @@ export async function GET(request) {
   const max = request.nextUrl.searchParams.get("max");
   const page = parseInt(request.nextUrl.searchParams.get("page")) || 1;
   const search = request.nextUrl.searchParams.get("search");
-  const pageSize = 10;
+  const pageSize = 12;
 
   // Initialize the `where` object
   let where = {};

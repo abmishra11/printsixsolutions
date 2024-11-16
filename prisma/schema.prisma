@@ -175,7 +175,7 @@ model Product {
   isActive          Boolean
   isWholesale       Boolean
   sku               String? @unique
-  barcode           String? @unique
+  barcode           String?
   productCode       String?
   unit              String?
   productPrice      Float

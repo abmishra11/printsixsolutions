@@ -18,9 +18,9 @@ export default async function FilteredProducts({
           );
         })}
       </div>
-      {/* <div className="mt-8">
+      <div className="mt-8">
         <Paginate totalPages={totalPages} />
-      </div> */}
+      </div>
     </div>
   );
 }

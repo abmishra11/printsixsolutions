@@ -3,9 +3,9 @@ import { getData } from "@/lib/getData";
 import React from "react";
 
 export default async function page({ searchParams }) {
-  const categories = await getData("categories");
-  const filteredCategories = categories.filter(
-    (category) => category.products && category.products.length > 0
+  const categoriesData = await getData("categories");
+  const categories = categoriesData.filter(
+    (category) => category.products.length > 0
   );
 
   const {
@@ -30,10 +30,7 @@ export default async function page({ searchParams }) {
 
   return (
     <div>
-      <FilterComponent
-        filterData={filterData}
-        categories={filteredCategories}
-      />
+      <FilterComponent filterData={filterData} categories={categories} />
     </div>
   );
 }

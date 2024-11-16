@@ -13,7 +13,6 @@ import { useSearchParams } from "next/navigation";
 export default function Paginate({ totalPages }) {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page")) || 1;
-  console.log(currentPage, totalPages);
   return (
     <Pagination>
       <PaginationContent>

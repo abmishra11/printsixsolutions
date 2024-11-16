@@ -12,8 +12,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function NewCategoryForm({ categories, updateData = {} }) {
-  console.log("Categories:", categories);
-
   const categoryId = updateData?.id ?? "";
   const initialImageUrl = updateData?.imageUrl ?? "";
   const [imageFile, setImageFile] = useState(initialImageUrl);

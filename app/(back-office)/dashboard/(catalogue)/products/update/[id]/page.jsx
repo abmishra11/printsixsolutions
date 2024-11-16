@@ -11,12 +11,7 @@ export default async function UpdateProduct({ params: { id } }) {
 
   // Categories and Farmers
   const categoriesData = await getData("categories");
-  const categories = categoriesData.map((category) => {
-    return {
-      id: category.id,
-      title: category.title,
-    };
-  });
+  const categories = categoriesData.map((category) => category);
 
   // Getting logged in user id
   const session = await getServerSession(authOptions);

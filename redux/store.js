@@ -4,10 +4,9 @@ import checkoutSlice from "./slices/checkoutSlice";
 import onboardingSlice from "./slices/onboardingSlice";
 
 export const store = configureStore({
-    reducer: {
-        // Slices goes here
-        cart: cartSlice,
-        checkout: checkoutSlice,
-        onboarding: onboardingSlice
-    }
-})
+  reducer: {
+    cart: cartSlice,
+    checkout: checkoutSlice,
+    onboarding: onboardingSlice,
+  },
+});

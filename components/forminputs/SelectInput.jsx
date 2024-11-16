@@ -8,6 +8,7 @@ export default function SelectInput({
   options = [],
   multipleSelect = false,
   isRequired = true,
+  onChange = undefined,
 }) {
   return (
     <div className={className}>
@@ -25,6 +26,7 @@ export default function SelectInput({
           name={name}
           required={isRequired}
           className="block w-full rounded-md border-0 py-3 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:leading-6 dark:bg-transparent dark:text-slate-50"
+          onChange={onChange} // This will only be used if onChange is provided
         >
           {options.map((option, i) => {
             return (

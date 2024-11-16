@@ -19,7 +19,7 @@ export default function MultipleImageInput({
           htmlFor="course-image"
           className="block font-medium leading-6 text-gray-900 dark:text-slate-50"
         >
-          {label}
+          {isRequired ? `* ${label}` : `${label}`}
         </label>
       </div>
       <DropZone
