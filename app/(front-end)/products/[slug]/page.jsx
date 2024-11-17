@@ -24,14 +24,16 @@ import React from "react";
 
 export default async function ProductDetailPage({ params: { slug } }) {
   const product = await getData(`/products/product/${slug}`);
-  const productReviews = product?.reviews
+  console.log("product: ", product);
+
+  const productReviews = product?.reviews;
   const catId = product.categoryId;
   const category = await getData(`categories/${catId}`);
   const categoryProducts = category.products;
   const similarProducts = categoryProducts.filter(
     (similarProduct) => similarProduct.id !== product.id
   );
-  
+
   const session = await getServerSession(authOptions);
   const user = session?.user;
   const userId = user?.id;
@@ -58,15 +60,23 @@ export default async function ProductDetailPage({ params: { slug } }) {
           <div className="border-b border-gray-500">
             <p className="py-2">{product.description}</p>
           </div>
-          <div className="flex items-center justify-between mt-2">
-            <p>SKU: {product.sku}</p>
-            <p className="bg-primary text-white py-1.5 px-4 rounded">
-              <b>Stock: </b>
-              {product.productStock}
+          <div className="mt-2">
+            <p>
+              Category:{" "}
+              <Link
+                href={`/category/${product.category.slug}`}
+                className="text-primary"
+              >
+                {product.category.title}
+              </Link>
             </p>
           </div>
-          <div className="flex items-center mt-4">
-            <ProductRating reviews={productReviews} />
+          <div className="flex items-center justify-between mt-2">
+            <p>SKU: {product.sku}</p>
+          </div>
+          <div className="mt-2">
+            <b>Stock: </b>
+            {product.productStock}
           </div>
           <div className="flex items-center gap-4 pt-4 border-b border-gray-500 pb-4">
             <div className="flex items-center justify-between gap-4">
@@ -79,6 +89,9 @@ export default async function ProductDetailPage({ params: { slug } }) {
               <Tag className="w-5 h-5 text-slate-400 me-2" />
               <span>Save 50% right now</span>
             </p> */}
+          </div>
+          <div className="flex items-center mt-4">
+            <ProductRating reviews={productReviews} />
           </div>
           <div className="flex justify-between items-center py-6">
             <AddToCartButton product={product} />

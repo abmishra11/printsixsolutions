@@ -6,7 +6,7 @@ import React from "react";
 export default async function Layout({ children }) {
   const categoriesData = await getData("categories");
   const categories = categoriesData.filter(
-    (category) => category.products.length > 0
+    (category) => category.products.length > 0 && category.parentId === null
   );
   return (
     <div>

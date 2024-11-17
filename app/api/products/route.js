@@ -141,7 +141,17 @@ export async function GET(request) {
   // Initialize the `where` object
   let where = {};
   if (categoryId) {
-    where.categoryId = categoryId;
+    // Fetch all sub-category IDs
+    const categories = await db.category.findMany({
+      where: {
+        OR: [{ id: categoryId }, { parentId: categoryId }],
+      },
+      select: { id: true },
+    });
+
+    const categoryIds = categories.map((category) => category.id);
+
+    where.categoryId = { in: categoryIds };
   }
 
   // Add salePrice filter based on `min` and `max`

@@ -39,12 +39,22 @@ export default function Product({ product }) {
           </div> */}
         </Link>
       </div>
-      <div className="pt-4 pb-3 px-4 space-y-4">
-        <Link href={`/products/${product.slug}`}>
-          <h4 className="font-medium text-base mb-2 text-gray-800 hover:text-primary transition min-h-12">
-            {product.title}
-          </h4>
-        </Link>
+      <div className="pt-4 pb-3 px-4 space-y-2">
+        <div>
+          <Link href={`/products/${product.slug}`}>
+            <h4 className="font-medium text-primary text-xl mb-2 transition">
+              {product.title}
+            </h4>
+          </Link>
+          {product.category && (
+            <p className="text-primary">
+              Category:{" "}
+              <Link href={`/category/${product.category.slug}`}>
+                {product.category.title}
+              </Link>
+            </p>
+          )}
+        </div>
         <div className="flex items-baseline mb-1 space-x-2 font-roboto">
           <p className="text-xl text-primary font-semibold">
             ${product.salePrice}
