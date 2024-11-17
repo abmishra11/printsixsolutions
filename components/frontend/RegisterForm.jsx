@@ -40,7 +40,7 @@ export default function RegisterForm({ role = "USER" }) {
           const emailVerificationLink = `${baseUrl}/verify-email/${newUser?.id}`;
           const emailData = {
             to: data.email,
-            subject: "Test Email",
+            subject: "Email Verification",
             templateName: "lib/emailtemplates/verifyEmail.ejs",
             templateVariables: { action_url: emailVerificationLink },
           };

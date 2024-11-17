@@ -13,7 +13,7 @@ export default async function Home() {
   // const session = await getServerSession(authOptions);
   const categoriesData = await getData("categories");
   const categories = categoriesData.filter(
-    (category) => category.products.length > 0
+    (category) => category.products.length > 0 && category.parentId === null
   );
 
   const products = await getData("products");
