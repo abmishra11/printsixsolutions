@@ -21,6 +21,11 @@ export default async function page() {
     return { ...category, parentTitle };
   });
 
+  // Sort updatedCategories by createdAt date (newest first)
+  updatedCategories.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
   return (
     <div className="relative min-h-screen">
       {/* Header */}

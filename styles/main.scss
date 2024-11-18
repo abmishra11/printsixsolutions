@@ -186,3 +186,20 @@ body {
   outline: none !important;
   outline-offset: none !important;
 }
+
+.jodit-wysiwyg {
+  background-color: #f9f9f9; 
+  color: #111111; 
+}
+
+.jodit-toolbar {
+  background-color: #4a90e2; 
+}
+
+.jodit-toolbar__button {
+  color: #ffffff;
+}
+
+.jodit-toolbar__button:hover {
+  background-color: #357ABD; 
+}

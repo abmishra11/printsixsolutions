@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import ArrayItemsInput from "@/components/forminputs/ArrayItemsInput";
@@ -12,8 +12,20 @@ import ToggleInput from "@/components/forminputs/ToggleInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
 import { generateUserCode } from "@/lib/generateUserCode";
+import JoditEditor from "jodit-react";
 
 export default function ProductForm({ categories, vendor, updateData = {} }) {
+  const config = {
+    width: "100%",
+    height: 400,
+    style: {
+      backgroundColor: "#f9f9f9",
+      color: "#111111",
+    },
+  };
+  const editor = useRef(null);
+  const [otherDetails, setOtherDetails] = useState(updateData?.otherDetails);
+
   const [loading, setLoading] = useState(false);
   const productId = updateData?.id ?? "";
 
@@ -130,7 +142,17 @@ export default function ProductForm({ categories, vendor, updateData = {} }) {
     setValue("subCategory", subCategoryId);
   };
 
+  const handleOtherDetailChange = (newContent) => {
+    setOtherDetails(newContent);
+  };
+
   async function onSubmit(data) {
+    if (editor.current) {
+      data.otherDetails = editor.current.value;
+    } else {
+      data.otherDetails = "";
+    }
+
     console.log("Form data:", data);
     console.log("Uploaded image URLs:", productImages);
     setLoading(true);
@@ -333,6 +355,15 @@ export default function ProductForm({ categories, vendor, updateData = {} }) {
           register={register}
           errors={errors}
         />
+
+        <div className="col-span-2">
+          <JoditEditor
+            ref={editor}
+            value={otherDetails}
+            config={config}
+            onSubmit={(newContent) => setOtherDetails(newContent)}
+          />
+        </div>
 
         <ToggleInput
           label={"* Publish Your Product"}

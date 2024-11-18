@@ -8,6 +8,7 @@ import ProductReviewForm from "@/components/frontend/productreview/ProductReview
 import ProductShareButton from "@/components/frontend/ProductShareButton";
 import { authOptions } from "@/lib/authOptions";
 import { getData } from "@/lib/getData";
+
 import {
   BaggageClaim,
   Minus,
@@ -42,6 +43,7 @@ export default async function ProductDetailPage({ params: { slug } }) {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${slug}`;
+
   return (
     <div className="container py-4">
       <Breadcrumb />
@@ -52,35 +54,44 @@ export default async function ProductDetailPage({ params: { slug } }) {
             thumbnail={product.imageUrl}
           />
         </div>
-        <div className="md:col-span-5 col-span-1">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-3xl font-medium">{product.title}</h2>
+        <div className="md:col-span-8 col-span-1">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-2xl font-medium text-primary">
+              {product.title}
+            </h2>
             <ProductShareButton urlToShare={urlToShare} />
           </div>
-          <div className="border-b border-gray-500">
-            <p className="py-2">{product.description}</p>
+          <div className="flex items-center mt-2">
+            <ProductRating reviews={productReviews} />
+          </div>
+          <div className="mt-2">
+            <p>{product.description}</p>
           </div>
           <div className="mt-2">
             <p>
-              Category:{" "}
+              <span className="text-primary">Category: </span>
               <Link
                 href={`/category/${product.category.slug}`}
-                className="text-primary"
+                className="underline"
               >
                 {product.category.title}
               </Link>
             </p>
           </div>
           <div className="flex items-center justify-between mt-2">
-            <p>SKU: {product.sku}</p>
+            <p>
+              <span className="text-primary">SKU: </span>
+              {product.sku}
+            </p>
           </div>
           <div className="mt-2">
-            <b>Stock: </b>
+            <span className="text-primary">Stock: </span>
             {product.productStock}
           </div>
-          <div className="flex items-center gap-4 pt-4 border-b border-gray-500 pb-4">
-            <div className="flex items-center justify-between gap-4">
-              <h4 className="text-2xl">$ {product.salePrice}</h4>
+          <div className="flex items-center gap-4 border-b border-gray-500 mt-2">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <span className="text-primary">Price: </span>
+              <h4 className="">$ {product.salePrice}</h4>
               <del className="text-slate-400 text-sm">
                 $ {product.productPrice}
               </del>
@@ -90,14 +101,20 @@ export default async function ProductDetailPage({ params: { slug } }) {
               <span>Save 50% right now</span>
             </p> */}
           </div>
-          <div className="flex items-center mt-4">
-            <ProductRating reviews={productReviews} />
-          </div>
+          {product.otherDetails && (
+            <div className="mt-2">
+              <p className="text-primary">Other Details:</p>
+              <div
+                className="p-4 bg-white border-b border-gray-500 mt-2"
+                dangerouslySetInnerHTML={{ __html: product.otherDetails }}
+              ></div>
+            </div>
+          )}
           <div className="flex justify-between items-center py-6">
             <AddToCartButton product={product} />
           </div>
         </div>
-        <div className="md:col-span-3 col-span-1 sm:block hidden bg-white border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-700 text-slate-800 overflow-hidden">
+        {/* <div className="md:col-span-3 col-span-1 sm:block hidden bg-white border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-700 text-slate-800 overflow-hidden">
           <h2 className="bg-primary text-white py-3 px-6 font-semibold">
             Delivery & Returns
           </h2>
@@ -135,7 +152,7 @@ export default async function ProductDetailPage({ params: { slug } }) {
               </select>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {similarProducts.length > 0 && (
         <div className="bg-white dark:bg-slate-700 p-4 my-8 rounded-xl">

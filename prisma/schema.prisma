@@ -171,7 +171,8 @@ model Product {
   slug              String @unique
   imageUrl          String?
   productImages     String[]
-  description       String?   
+  description       String?  
+  otherDetails      String? 
   isActive          Boolean
   isWholesale       Boolean
   sku               String? @unique

@@ -7,8 +7,11 @@ export default async function FilteredProducts({
   productCount,
 }) {
   // Pagination
+  console.log("productCount: ", productCount);
+
   const pageSize = 12;
   const totalPages = Math.ceil(productCount / pageSize);
+  console.log("totalPages: ", totalPages);
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">

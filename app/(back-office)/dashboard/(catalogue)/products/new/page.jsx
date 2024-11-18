@@ -8,7 +8,6 @@ import { authOptions } from "@/lib/authOptions";
 export default async function NewProduct() {
   const categoriesData = await getData("categories");
   const categories = categoriesData.map((category) => category);
-  console.log("categories: ", categories);
 
   // Getting logged in user id
   const session = await getServerSession(authOptions);

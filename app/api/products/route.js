@@ -7,6 +7,7 @@ export async function POST(request) {
       barcode,
       categoryId,
       description,
+      otherDetails,
       userId,
       isActive,
       isWholesale,
@@ -88,6 +89,7 @@ export async function POST(request) {
         connect: { id: categoryId },
       },
       description,
+      otherDetails,
       user: {
         connect: { id: userId },
       },
