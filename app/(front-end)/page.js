@@ -16,14 +16,14 @@ export default async function Home() {
     (category) => category.products.length > 0 && category.parentId === null
   );
 
-  const products = await getData("products");
+  // const products = await getData("products");
 
   return (
     <div className="min-h-screen">
       <HomeBanner />
       <SupportSection />
       <ShopByCategory categories={categories} />
-      <NewArivals products={products?.products} />
+      {/* <NewArivals products={products?.products} /> */}
       {/* <Hero categories={categories}/> */}
       {/* <VendorList/> */}
       {/* {
