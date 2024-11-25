@@ -28,7 +28,7 @@ export default async function page({ searchParams }) {
     pageUrl: `/search`,
     search,
   };
-  console.log("filterData: ", filterData);
+
   return (
     <div>
       <FilterComponent filterData={filterData} categories={categories} />

@@ -3,8 +3,6 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 
 export default function SearchResultsCount({ title, resultsCount }) {
-  console.log("resultsCount: ", resultsCount);
-
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || 1;
   const pageSize = 12;
