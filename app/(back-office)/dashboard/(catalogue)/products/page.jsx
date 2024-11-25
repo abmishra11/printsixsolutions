@@ -11,7 +11,9 @@ export default async function page() {
   if (!session) {
     return null;
   }
-  const allProducts = await getData("products");
+
+  const products = await getData("products");
+  const allProducts = products?.products;
 
   const vendorId = session?.user?.id;
   const role = session?.user?.role;
