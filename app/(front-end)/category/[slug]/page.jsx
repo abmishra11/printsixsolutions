@@ -14,13 +14,15 @@ export default async function page({ params: { slug }, searchParams }) {
 
   const { sort = "asc", min = 0, max = "", page = 1 } = searchParams;
 
-  const products = await getData(
+  const { products, productsCount, totalPages } = await getData(
     `products?catId=${category[0]?.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`
   );
 
   const filterData = {
-    title: category[0]?.title,
+    title: category[0].title,
     products,
+    productsCount,
+    totalPages,
     pageUrl: `/category/${slug}`,
     search: "",
   };

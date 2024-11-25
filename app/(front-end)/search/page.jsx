@@ -15,7 +15,6 @@ export default async function page({ searchParams }) {
     page = 1,
     search = "",
   } = searchParams;
-  console.log("search:", search);
 
   const products = await getData(
     `products?search=${search}&page=${page}&sort=${sort}&min=${min}&max=${max}`
@@ -23,11 +22,13 @@ export default async function page({ searchParams }) {
 
   const filterData = {
     title: `Search Result for ${search}`,
-    products,
+    products: products?.products,
+    productsCount: products?.productsCount,
+    totalPages: products?.totalPages,
     pageUrl: `/search`,
     search,
   };
-
+  console.log("filterData: ", filterData);
   return (
     <div>
       <FilterComponent filterData={filterData} categories={categories} />

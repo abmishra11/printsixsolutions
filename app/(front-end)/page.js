@@ -23,7 +23,7 @@ export default async function Home() {
       <HomeBanner />
       <SupportSection />
       <ShopByCategory categories={categories} />
-      <NewArivals products={products} />
+      <NewArivals products={products.products} />
       {/* <Hero categories={categories}/> */}
       {/* <VendorList/> */}
       {/* {

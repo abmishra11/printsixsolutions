@@ -37,21 +37,9 @@ export const columns = [
     header: ({ column }) => <SortableColumn column={column} title={"Email"} />,
   },
   {
-    accessorKey: "role",
-    header: ({ column }) => <SortableColumn column={column} title={"Role"} />,
-  },
-  {
-    accessorKey: "plan",
-    header: "Plan",
-  },
-  {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => <Status row={row} accessorKey="status" />,
-  },
-  {
-    accessorKey: "isActive",
-    header: "IsActive",
   },
   {
     accessorKey: "createdAt",

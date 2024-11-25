@@ -10,8 +10,18 @@ export default async function page() {
   const id = session?.user?.id;
   const role = session?.user?.role;
   const allSales = await getData("sales");
-
   const vendorSales = allSales.filter((sale) => sale.vendorId === id);
+
+  const filterKeys = [{ productTitle: "Product Title" }];
+  const tableName = "Sales";
+  const exportColumns = [
+    { productImage: "Product Image" },
+    { productTitle: "Product Title" },
+    { productPrice: "Product Price" },
+    { productQty: "Quantity" },
+    { total: "Total" },
+  ];
+
   return (
     <div className="relative min-h-screen">
       {/* Header */}
@@ -24,15 +34,19 @@ export default async function page() {
       <h2 className="text-2xl font-semibold text-slate-50 mb-4">Sales</h2>
       {role === "ADMIN" ? (
         <DataTable
+          tableName={tableName}
           data={allSales}
           columns={columns}
-          filterKeys={["productTitle"]}
+          filterKeys={filterKeys}
+          exportColumns={exportColumns}
         />
       ) : (
         <DataTable
+          tableName={tableName}
           data={vendorSales}
           columns={columns}
-          filterKeys={["title", "couponCode"]}
+          filterKeys={filterKeys}
+          exportColumns={exportColumns}
         />
       )}
     </div>

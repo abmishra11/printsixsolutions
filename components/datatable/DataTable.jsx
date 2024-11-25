@@ -27,7 +27,13 @@ import {
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
-export default function DataTable({ columns, data, filterKeys = ["title"] }) {
+export default function DataTable({
+  tableName,
+  data,
+  columns,
+  filterKeys,
+  exportColumns,
+}) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
@@ -57,7 +63,12 @@ export default function DataTable({ columns, data, filterKeys = ["title"] }) {
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} filterKeys={filterKeys} />
+      <DataTableToolbar
+        tableName={tableName}
+        table={table}
+        filterKeys={filterKeys}
+        exportColumns={exportColumns}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

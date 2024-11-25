@@ -134,16 +134,14 @@ export async function POST(request) {
 export async function GET(request) {
   const categoryId = request.nextUrl.searchParams.get("catId");
   const sortBy = request.nextUrl.searchParams.get("sort");
-  const min = request.nextUrl.searchParams.get("min");
-  const max = request.nextUrl.searchParams.get("max");
+  const min = parseFloat(request.nextUrl.searchParams.get("min"));
+  const max = parseFloat(request.nextUrl.searchParams.get("max"));
   const page = parseInt(request.nextUrl.searchParams.get("page")) || 1;
   const search = request.nextUrl.searchParams.get("search");
   const pageSize = 12;
 
-  // Initialize the `where` object
   let where = {};
   if (categoryId) {
-    // Fetch all sub-category IDs
     const categories = await db.category.findMany({
       where: {
         OR: [{ id: categoryId }, { parentId: categoryId }],
@@ -173,23 +171,32 @@ export async function GET(request) {
     ? { salePrice: sortBy === "asc" ? "asc" : "desc" }
     : { createdAt: "desc" };
 
+  const skip = (page - 1) * pageSize;
+  const take = pageSize;
   try {
-    const products = await db.product.findMany({
-      where,
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy,
-      include: {
-        reviews: true,
-        category: true,
-      },
+    const [products, productsCount] = await Promise.all([
+      db.product.findMany({
+        where,
+        skip,
+        take,
+        orderBy,
+        include: { reviews: true, category: true },
+      }),
+      db.product.count({ where }),
+    ]);
+    console.log("products: ", products);
+    console.log("productsCount: ", productsCount);
+    console.log("skip: ", skip);
+    console.log("take: ", take);
+    return NextResponse.json({
+      products,
+      productsCount,
+      totalPages: Math.ceil(productsCount / pageSize),
     });
-
-    return NextResponse.json(products);
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(
-      { message: "Failed to fetch products", error },
+      { message: "Failed to fetch products" },
       { status: 500 }
     );
   }

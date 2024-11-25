@@ -7,8 +7,9 @@ import { columns } from "./columns";
 
 export default async function page() {
   const vendors = await getData("vendors");
-  console.log("vendors", vendors);
-
+  const filterKeys = [{ name: "Name" }, { email: "Email" }];
+  const tableName = "Vendors";
+  const exportColumns = [{ name: "Name" }, { email: "Email" }];
   return (
     <div className="relative min-h-screen">
       {/* Header */}
@@ -19,9 +20,11 @@ export default async function page() {
       />
       {/* Table */}
       <DataTable
+        tableName={tableName}
         data={vendors}
         columns={columns}
-        filterKeys={["name", "email"]}
+        filterKeys={filterKeys}
+        exportColumns={exportColumns}
       />
     </div>
   );

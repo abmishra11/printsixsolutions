@@ -19,6 +19,18 @@ export default async function page() {
     (product) => product.userId === vendorId
   );
 
+  const filterKeys = [
+    { title: "Title" },
+    { description: "Description" },
+    { productPrice: "Price" },
+  ];
+  const tableName = "Products";
+  const exportColumns = [
+    { title: "Title" },
+    { imageUrl: "Image URL" },
+    { description: "Description" },
+  ];
+
   return (
     <div className="relative min-h-screen">
       {/* Header */}
@@ -29,9 +41,21 @@ export default async function page() {
       />
       {/* Table */}
       {role === "ADMIN" ? (
-        <DataTable data={allProducts} columns={columns} />
+        <DataTable
+          tableName={tableName}
+          data={allProducts}
+          columns={columns}
+          filterKeys={filterKeys}
+          exportColumns={exportColumns}
+        />
       ) : (
-        <DataTable data={vendorProducts} columns={columns} />
+        <DataTable
+          tableName={tableName}
+          data={vendorProducts}
+          columns={columns}
+          filterKeys={filterKeys}
+          exportColumns={exportColumns}
+        />
       )}
     </div>
   );

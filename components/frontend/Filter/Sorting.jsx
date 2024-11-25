@@ -4,8 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 import SearchResultsCount from "./SearchResultsCount";
 
-export default function Sorting({ title, pageUrl, productCount}) {
-  console.log("title", title);
+export default function Sorting({ title, pageUrl, productsCount }) {
   const searchParams = useSearchParams();
   const sortParams = searchParams.get("sort");
   const search = searchParams.get("search");
@@ -41,8 +40,8 @@ export default function Sorting({ title, pageUrl, productCount}) {
   return (
     <div className="flex items-center justify-between w-full">
       {/* Title Section on the Left */}
-      <h2 className="text-sm font-medium text-primary hidden md:block w-auto">
-        <SearchResultsCount title={title} resultCount={productCount} />
+      <h2 className="text-primary hidden md:block w-auto">
+        <SearchResultsCount title={title} resultsCount={productsCount} />
       </h2>
 
       {/* Sorting Links Section on the Right */}

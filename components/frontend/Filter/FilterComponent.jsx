@@ -5,16 +5,21 @@ import FilteredProducts from "./FilteredProducts";
 import FilterBreadcrumb from "./FilterBreadcrumb";
 
 export default async function FilterComponent({ filterData, categories }) {
-  const { title, products, pageUrl, search } = filterData;
-  const productCount = products.length;
+  const { title, products, productsCount, totalPages, pageUrl, search } =
+    filterData;
+
   return (
     <div className="container">
       <div className="grid md:grid-cols-4 grid-cols-1 py-4 space-y-6 md:space-y-0">
         <div className="md:col-span-1 col-span-1 flex items-center">
-          <FilterBreadcrumb title={title} resultCount={productCount} />
+          <FilterBreadcrumb title={title} />
         </div>
         <div className="md:col-span-3 col-span-1">
-          <Sorting title={title} pageUrl={pageUrl} productCount={productCount} />
+          <Sorting
+            title={title}
+            pageUrl={pageUrl}
+            productsCount={productsCount}
+          />
         </div>
       </div>
       <div className="grid md:grid-cols-4 grid-cols-1 gap-6 pb-16 items-start">
@@ -22,7 +27,7 @@ export default async function FilterComponent({ filterData, categories }) {
           <Filters pageUrl={pageUrl} categories={categories} search={search} />
         </div>
         <div className="md:col-span-3 col-span-1">
-          <FilteredProducts productCount={productCount} products={products} />
+          <FilteredProducts totalPages={totalPages} products={products} />
         </div>
       </div>
     </div>

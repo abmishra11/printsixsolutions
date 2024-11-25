@@ -25,6 +25,15 @@ export default async function page() {
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
 
+  const filterKeys = [{ title: "Title" }, { description: "Description" }];
+  const tableName = "Categories";
+  const exportColumns = [
+    { title: "Title" },
+    { imageUrl: "Image URL" },
+    { description: "Description" },
+    { isActive: "Status" },
+  ];
+
   return (
     <div className="relative min-h-screen">
       {/* Header */}
@@ -33,9 +42,14 @@ export default async function page() {
         linkTitle={"Add Category"}
         href={"/dashboard/categories/new"}
       />
-
       {/* Table */}
-      <DataTable data={updatedCategories} columns={columns} />
+      <DataTable
+        tableName={tableName}
+        data={updatedCategories}
+        columns={columns}
+        filterKeys={filterKeys}
+        exportColumns={exportColumns}
+      />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export default function FilterBreadcrumb({ title, resultCount }) {
+export default function FilterBreadcrumb({ title }) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center">

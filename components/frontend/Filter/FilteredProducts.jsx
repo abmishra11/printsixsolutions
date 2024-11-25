@@ -2,22 +2,17 @@ import React from "react";
 import Product from "../Product";
 import Paginate from "./Paginate";
 
-export default async function FilteredProducts({
-  products = [],
-  productCount,
-}) {
-  // Pagination
-  console.log("productCount: ", productCount);
-
-  const pageSize = 12;
-  const totalPages = Math.ceil(productCount / pageSize);
-  console.log("totalPages: ", totalPages);
+export default function FilteredProducts({ products = [], totalPages = 0 }) {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product, i) => {
           return (
-            <Product product={product} key={i} reviews={product.reviews} />
+            <Product
+              product={product}
+              key={product.id}
+              reviews={product.reviews}
+            />
           );
         })}
       </div>

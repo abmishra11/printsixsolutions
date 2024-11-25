@@ -8,6 +8,10 @@ import { columns } from "./columns";
 export default async function page() {
   const customers = await getData("customers");
 
+  const filterKeys = [{ name: "Name" }, { email: "Email" }];
+  const tableName = "Customers";
+  const exportColumns = [{ name: "Name" }, { email: "Email" }];
+
   return (
     <div className="relative min-h-screen">
       {/* Header */}
@@ -19,9 +23,11 @@ export default async function page() {
       {/* Table */}
       <h2 className="text-2xl font-semibold text-slate-50 mb-4">Customers</h2>
       <DataTable
+        tableName={tableName}
         data={customers}
         columns={columns}
-        filterKeys={["name", "email"]}
+        filterKeys={filterKeys}
+        exportColumns={exportColumns}
       />
     </div>
   );
