@@ -115,7 +115,6 @@ export async function POST(request) {
       data,
     });
 
-    console.log(newProduct);
     return NextResponse.json(newProduct);
   } catch (error) {
     console.log(error);
@@ -173,8 +172,11 @@ export async function GET(request) {
 
   const skip = (page - 1) * pageSize;
   const take = pageSize;
+
+  let products = [];
+  let productsCount = 0;
   try {
-    const [products, productsCount] = await Promise.all([
+    [products, productsCount] = await Promise.all([
       db.product.findMany({
         where,
         skip,
@@ -184,10 +186,7 @@ export async function GET(request) {
       }),
       db.product.count({ where }),
     ]);
-    console.log("products: ", products);
-    console.log("productsCount: ", productsCount);
-    console.log("skip: ", skip);
-    console.log("take: ", take);
+
     return NextResponse.json({
       products,
       productsCount,
